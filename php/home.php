@@ -11,10 +11,10 @@
         <nav> 
             <ul>
                 <li class="title">TechGenius Distribution S.A</li>
-                <li><a href = "#" >:v</a></li>
-                <li><a href = "#" >:v</a></li>
-                <li><a href = "#" >:v</a></li>
-                <li><a href = "#" >:v</a></li>
+                <li><a class = "opt" href = "#" >:v</a></li>
+                <li><a class = "opt" href = "#" >:v</a></li>
+                <li><a class = "opt" href = "#" >:v</a></li>
+                <li><a class = "opt" href = "#" >:v</a></li>
             </ul>
         </nav>
     </header>

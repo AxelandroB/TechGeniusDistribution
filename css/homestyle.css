@@ -19,12 +19,19 @@ nav li{
     padding: 0px 20px;
     
 }
-header, ul, li{
+header, ul,li,a{
 
     background-color: rgb(147, 147, 147);
+}
+a{
+    position: relative;
+    left: 100px;
+    padding-inline: 100px;
 }
 .title{
 font-family: Arial, Helvetica, sans-serif;
 font-size: 20px;
 
 }
+
+
