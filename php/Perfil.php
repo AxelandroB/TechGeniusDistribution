@@ -12,10 +12,10 @@
 <div class="encuadre">
     <div class="container">
         <div class="box">
-    
+    <div class="linea">
         
 <h1>Perfil</h1>
-
+</div>
 </div>
 <div class="box"> 
 <ul>
@@ -29,6 +29,9 @@
   <li>Seccion:</li>
   <li>Cargo:</li>
 </ul>
+</div>
+<div class="box"> 
+    <button class="btn">Cerrar Sesion</button>
 </div>
 </div>
 </div>
