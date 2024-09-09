@@ -1,0 +1,33 @@
+body{
+
+    background-color: #d3d3d3;
+}
+.encuadre {
+    background-color: #ffffff;
+    width: 800px;           /* Ancho de 150 píxeles */
+    height: 800px;          /* Alto de 150 píxeles */
+    border: 6px solid #005e1c ; /* Borde color negro y de 1 píxel de grosor */
+    border-radius: 30px;
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+   
+
+  }
+
+  .encuadre h1{
+
+    font-family:Arial , Helvetica, sans-serif;
+    font-size: 50px;
+    border: 20 px ;
+    border-bottom: 4px solid #005e1c ;
+  }
+  .Nombre{
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    margin-top: -50px; /* Ajusta el valor según la mitad de la altura del elemento */
+    margin-left: -50px; /* Ajusta el valor según la mitad del ancho del elemento */
+    
+  }

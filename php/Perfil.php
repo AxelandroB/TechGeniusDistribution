@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil</title>
-    <link rel="stylesheet" href="Perfil.css">
+    <link rel="stylesheet" href="../css/Perfil.css">
 </head>
 <body>
     <?php
     ?>
-<div>
+<div class="encuadre">
+    <div class="Nombre">
 <h1>Perfil</h1>
-
+<div class="linea"></div>
+</div>
 </div>
 </body>
 </html>
