@@ -1,0 +1,74 @@
+body{
+
+    background-color: #eeeeee;
+}
+.encuadre {
+    background-color: #ffffff;
+    width: 800px;           /* Ancho de 150 píxeles */
+    height: 800px;          /* Alto de 150 píxeles */
+    border: 6px solid #005e1c ; /* Borde color negro y de 1 píxel de grosor */
+    border-radius: 30px;
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+   
+
+  }
+  .container{
+    display: grid;
+    grid-template-rows: 100px 580px 120px;
+    
+  }
+
+  .encuadre h1{
+    position: relative;
+    font-family:Arial , Helvetica, sans-serif;
+    font-size: 50px;
+    border: 20px ;
+    text-align: center;
+    top: -20px;
+    padding-bottom: 20px;
+  }
+ 
+  .encuadre li  {
+    overflow:hidden;
+    font-family:Arial , Helvetica, sans-serif;
+    font-size: 30px;
+    padding-bottom: 30px;
+    padding-left: 10px;
+    position: relative;
+    
+    
+  }
+
+  .encuadre li:hover{
+    transform: scale(1.1);
+    transition:all .1s ease-in-out;
+
+  }
+
+  .box button{
+
+    position: relative;
+    font-family:Arial , Helvetica, sans-serif;
+    font-size: 40px;
+    left: 35%;
+    top: 40%;
+    border: none;
+   color: rgb(255, 255, 255);
+   background-color: red;
+  border-radius: 10px;
+  }
+  .box button:active{
+
+    transform: scale(0.96);
+   
+  }
+  .box h1 {
+    border-bottom: 4px solid #005e1c ;
+  }
+  
+  .box ul{
+    border-bottom: 4px solid #005e1c ;
+  }

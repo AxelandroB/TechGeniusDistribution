@@ -1,16 +1,12 @@
 <?php
 
-$conexion=new PDO("sqlsrv:server=DESKTOP-RIVIFEH;database=Techgenius_Distribution_SA;","sa","1234");
+$SERVER = "DESKTOP-RIVIFEH";
+$CONNECT = array(
+    "Database" => "Techgenius_Distribution_SA",
+    "Usuario" => "sa",
+    "contraseña" => "1234"
+);
 
-$consulta=$conexion -> prepare("SELECT * FROM Empleados");
-$consulta->execute();
-$datos=$consulta -> fetchAll(PDO::FETCH_ASSOC);
+$conexion = sqlsrv_connect($SERVER, $CONNECT);
 
-// Imprimir los datos
-foreach ($datos as $fila) {
-    foreach ($fila as $clave => $valor) {
-        echo $clave . ': ' . $valor . '<br>';
-    }
-    echo '<hr>';
-}
 ?>
