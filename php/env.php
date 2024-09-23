@@ -1,17 +1,13 @@
 <?php
 
-$conexion=new PDO("sqlsrv:server=DESKTOP-I20CH35\SQLEXPRESS;database=Techgenius_Distribution_SA;","sa","123");
+$SERVER = "DESKTOP-I20CH35\SQLEXPRESS"; // Escapa la barra invertida en el nombre del servidor
+$CONNECT = array(
+    "Database" => "Techgenius_Distribution_SA",
+    "UID" => "sa", // Cambié "Usuario" a "UID"
+    "PWD" => "123" // Cambié "contraseña" a "PWD"
+);
 
-$consulta=$conexion -> prepare("SELECT * FROM Empleados");
-$consulta->execute();
-$datos=$consulta -> fetchAll(PDO::FETCH_ASSOC);
-
-// Imprimir los datos
-foreach ($datos as $fila) {
-    foreach ($fila as $clave => $valor) {
-        echo $clave . ': ' . $valor . '<br>';
-    }
-    echo '<hr>';
-}
+// Establecer la conexión
+$conexion = sqlsrv_connect($SERVER, $CONNECT);
 
 ?>
