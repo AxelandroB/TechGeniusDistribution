@@ -11,10 +11,6 @@
 </head>
 
 <body>
-    <?php
-        $contexto = 'Login';
-        
-    ?>
     <div id="content_01">
         <div id="content_02">
             <h2>Inicio de sesión</h2>
