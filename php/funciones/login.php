@@ -28,24 +28,13 @@ switch($_POST['comprobar']){
         }
         
 
-        $comprobar_contraseña = "SELECT Empleados.*, Sucursales.nombre AS sucursal, Secciones.Sección as seccion, Cargos.Nombre as cargo FROM Empleados 
-            INNER JOIN Sucursales ON Empleados.id_sucursal = Sucursales.id
-            INNER JOIN Secciones ON Empleados.id_sección = Secciones.id
-            INNER JOIN Cargos ON Empleados.id_cargo = Cargos.id
-            WHERE Empleados.nombre = '$user' AND Empleados.contraseña = '$pass'";
+        $comprobar_contraseña = "SELECT * FROM Empleados WHERE nombre = '$user' AND pass = '$pass'";
 
-        $stmt_contraseña = sqlsrv_query($conexion, $comprobar_contraseña);
-
-        echo $comprobar_contraseña;
-        die();
-
-        if($stmt_contraseña === false){
+        $stmt_contraseña = sqlsrv_prepare($conexion, $comprobar_contraseña);
+        
+        if(sqlsrv_execute($stmt_contraseña) === false){
             echo "error";
             print_r(sqlsrv_errors());
-            die();
-        }
-        else{
-            echo "si";
             die();
         }
 
@@ -57,8 +46,21 @@ switch($_POST['comprobar']){
         else{
 
             $ingresar['error'] = "0";
-            
-            $row = sqlsrv_fetch_array($stmt_contraseña, SQLSRV_FETCH_ASSOC);
+
+            $extraer = "SELECT Empleados.*, sucursales.nombre as sucursal, Secciones.seccion as seccion, Cargos.Nombre as cargo FROM Empleados
+            INNER JOIN Sucursales ON Empleados.id_sucursal = Sucursales.id
+            INNER JOIN Secciones ON Empleados.id_seccion = Secciones.id
+            INNER JOIN Cargos ON Empleados.id_cargo = Cargos.id 
+            WHERE Empleados.nombre = '$user'";
+
+            $stmt_extraer = sqlsrv_prepare($conexion, $extraer);
+            if(sqlsrv_execute($stmt_extraer) === false){
+                echo "error";
+                print_r(sqlsrv_errors());
+                die();
+            }
+
+            $row = sqlsrv_fetch_array($stmt_extraer, SQLSRV_FETCH_ASSOC);
 
             $name = $row['nombre'];
             $lastname = $row['apellido'];
@@ -81,9 +83,6 @@ switch($_POST['comprobar']){
             $_SESSION['seccion'] = $seccion;
             $_SESSION['sucursal'] = $sucursal;
             $_SESSION['cargo'] = $cargo;
-
-            print_r($_SESSION);
-            die();
 
         }
         ob_end_clean();
