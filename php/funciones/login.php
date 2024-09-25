@@ -47,7 +47,7 @@ switch($_POST['comprobar']){
 
             $ingresar['error'] = "0";
 
-            $extraer = "SELECT Empleados.*, sucursales.nombre as sucursal, Secciones.seccion as seccion, Cargos.Nombre as cargo FROM Empleados
+            $extraer = "SELECT Empleados.*, sucursales.nombre as sucursal, Secciones.nombre as seccion, Cargos.Nombre as cargo FROM Empleados
             INNER JOIN Sucursales ON Empleados.id_sucursal = Sucursales.id
             INNER JOIN Secciones ON Empleados.id_seccion = Secciones.id
             INNER JOIN Cargos ON Empleados.id_cargo = Cargos.id 
@@ -68,7 +68,9 @@ switch($_POST['comprobar']){
             $turno = $row['turno'];
             $telefono = $row['telefono'];
             $fecha_alta = $row['fecha_alta'];
+            $alta = $fecha_alta -> format ('Y-m-d');
             $fecha_baja = $row['fecha_baja'];
+            $baja = $fecha_baja -> format ('Y-m-d');
             $seccion = $row['seccion'];
             $sucursal = $row['sucursal'];
             $cargo = $row['cargo'];
@@ -78,8 +80,8 @@ switch($_POST['comprobar']){
             $_SESSION['dni'] = $dni;
             $_SESSION['turno'] = $turno;
             $_SESSION['telefono'] = $telefono;
-            $_SESSION['fecha_alta'] = $fecha_alta;
-            $_SESSION['fecha_baja'] = $fecha_baja;
+            $_SESSION['fecha_alta'] = $alta;
+            $_SESSION['fecha_baja'] = $baja;
             $_SESSION['seccion'] = $seccion;
             $_SESSION['sucursal'] = $sucursal;
             $_SESSION['cargo'] = $cargo;
@@ -88,6 +90,9 @@ switch($_POST['comprobar']){
         ob_end_clean();
         echo json_encode($ingresar);
         break;
+
+    case 'extraer':
+        echo json_encode($_SESSION);
 }
 
 ?>
