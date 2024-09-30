@@ -1,6 +1,6 @@
 <?php
 
-$SERVER = "DESKTOP-I20CH35\SQLEXPRESS"; // Escapa la barra invertida en el nombre del servidor
+$SERVER = "PC-F-16\SQLEXPRESS"; // Escapa la barra invertida en el nombre del servidor
 $CONNECT = array(
     "Database" => "Techgenius_Distribution_SA",
     "UID" => "sa", // Cambié "Usuario" a "UID"

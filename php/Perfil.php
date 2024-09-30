@@ -1,3 +1,8 @@
+<?php
+if (isset($_GET['message']) && $_GET['message'] == 'sesion_cerrada') {
+    echo "<p style='color: green;'>La sesión se ha cerrado correctamente.</p>";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +39,7 @@
                 </ul>
             </div>
             <div class="box">
-                <button class="btn">Cerrar Sesion</button>
+                <input type="button" class="btn" onclick="cerrar()" value="cerrar cuenta">
             </div>
         </div>
     </div>

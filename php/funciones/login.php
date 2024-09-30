@@ -93,6 +93,12 @@ switch($_POST['comprobar']){
 
     case 'extraer':
         echo json_encode($_SESSION);
+        break;
+    
+    case 'cerrar':
+        session_destroy();
+        echo json_encode("nan");
+        break;
 }
 
 ?>

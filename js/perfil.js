@@ -1,7 +1,7 @@
 function informacion(){
     alert("hola");
     $.ajax({
-        url: "Funciones/login.php",
+        url: "funciones/login.php",
         data: { 'comprobar': 'extraer'},
         type: "POST",
         dataType: "json",
@@ -31,34 +31,17 @@ function informacion(){
             $('#cargo').html("Cargo: " + cargo_00);
 
         }
-    })
+    });
 }
-function cerrar_cuenta(){
-    //Obetener la ruta de la URL actual
-    var path = window.location.pathname;
-    //Define la ruta base
-    var baseURL = "funciones/register.php";
-    //Define la ruta ida
-    var URL = "home.php";
-
-    if (path.includes("home")) {
-        baseURL = "funciones/register.php";
-        URL = "home.php"
-    } else if (path.includes("novedades") || path.includes("descarga")) {
-        baseURL = "../funciones/register.php";
-        URL = "../home.php"
-    } else if (path.includes("wiki")) {
-        baseURL = "../../funciones/register.php";
-        URL = "../../home.php"
-    }
+function cerrar(){
     $.ajax({
-        url: baseURL,
+        url: "funciones/login.php",
         data:{ 'comprobar': 'cerrar'},
         type: "POST",
-        dataType: "html",
+        dataType: "JSON",
         success: function(data){
             console.log("se cerro la cuenta");
-            window.location.href = URL;
+            window.location.href = "login.php";
         }
     })
 }
