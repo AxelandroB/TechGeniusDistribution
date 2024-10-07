@@ -154,7 +154,7 @@ h4{
     position: absolute;
     display: flex;
     left: 50%;
-    bottom: 10%;
+    bottom: 30%;
     background: transparent;
     animation-fill-mode: forwards;
 }
@@ -163,51 +163,7 @@ h4{
     animation-fill-mode: forwards;
     
 }
-.decoration{
 
-    position: fixed;
-    display: flex;
-    top: -100px; 
-    left: 750px;  
-    z-index: 0;
-    background-color:transparent;
-    transform: rotate(-90deg);
-
-}
-.wave{
-    z-index: 4; 
-    width: 500px;
-    height: 1000px;
-    background-color: transparent;
-    animation: movethewave 40s infinite;
-    transform: scaleX(5);
-    transition: 10s;
-
-}
-.wave :nth-child(1){
-    position: fixed;
-    animation: movethewave 40s infinite;
-   z-index: -1;
-}
-.wave :nth-child(2){
-    position: fixed;
-    animation: movethewave 45s infinite;
-    z-index: 2;
-}
-.wave :nth-child(3){
-    position: fixed;
-    animation: movethewave 48s infinite;
-    z-index: 5;
-}
-
-@keyframes  movethewave {
-
-    0%{transform: translate(0%,0%),scaleX(5);}
-    30%{transform: translate(50%,3%)scaleX(4);} 
-    70%{transform: translate(0%,0%)scaleX(5);}
-    100%{transform: translate(50%,3%)scaleX(4);} 
-
-}
 
 
 
