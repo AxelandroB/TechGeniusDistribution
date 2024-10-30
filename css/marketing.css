@@ -1,0 +1,15 @@
+table, td{
+
+    border: black 1px solid;
+
+}
+.content{
+
+    position: relative;
+    max-width: 100vw;
+    height: 98vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
