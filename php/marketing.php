@@ -19,16 +19,19 @@
         <div class="content_01">
             <table id="tabla_datos">
                 <tr>
-                    <td>ID</td>
-                    <td>Fecha inicial</td>
-                    <td>Fehca final</td>
-                    <td>Colaboracion</td>
-                    <td>Producto</td>
-                    <td>Color</td>
-                    <td>Marca</td>
-                    <td>Tipo de producto</td>
-                    <td>Eliminar</td>
-                    <td>Modificar</td>
+                    <td>Agregar</td>
+                </tr>
+                <tr>
+                    <td class="titulo">ID</td>
+                    <td class="titulo">Fecha inicial</td>
+                    <td class="titulo">Fehca final</td>
+                    <td class="titulo">Colaboracion</td>
+                    <td class="titulo">Producto</td>
+                    <td class="titulo">Color</td>
+                    <td class="titulo">Marca</td>
+                    <td class="titulo">Tipo de producto</td>
+                    <td class="titulo">Eliminar</td>
+                    <td class="titulo">Modificar</td>
                 </tr>
             </table>
         </div>
