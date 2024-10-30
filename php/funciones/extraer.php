@@ -54,10 +54,7 @@ switch($_POST['comprobar']){
             $_SESSION['cant_lo'] = $cantidades;
             $_SESSION['capacidad_lo'] = $capacidades;
             $_SESSION['empresa_lo'] = $empresas;
-            $_SESSION['producto_lo'] = $productos;
-
-            print_r($_SESSION);  
-            die();
+            $_SESSION['producto_lo'] = $productos;  
 
         }
         ob_end_clean();
@@ -83,49 +80,30 @@ switch($_POST['comprobar']){
 
             while($row = sqlsrv_fetch_array($stmt_01, SQLSRV_FETCH_ASSOC)){
 
-                $result[] = $row;
+                if($row['fecha_inicial'] instanceof DateTime){
+                    $row['fecha_inicial'] = $row['fecha_inicial']-> format ('Y-m-d');
+                }
+                if($row['fecha_final'] instanceof DateTime){
+                    $row['fecha_final'] = $row['fecha_final']-> format ('Y-m-d');
+                }
 
+                $result[] = [
+                    'id' => $row['id'],
+                    'fecha_inicial' => $row['fecha_inicial'],
+                    'fecha_final' => $row['fecha_final'],
+                    'colaboracion' => $row['colaboracion'],
+                    'producto' => $row['Nombre'],
+                    'color' => $row['Color'],
+                    'marca' => $row['Marca'],
+                    'tipo_producto' => $row['tipo_producto'],
+                ];
             }
+
+            $_SESSION['marketing'] = $result; 
             
-            $ids = [];
-            $fechas_inicial = [];
-            $fechas_finales = [];
-            $colaboracion = [];
-            $productos = [];
-            $color = [];
-            $marca = [];
-            $tipos_productos = [];
-
-            foreach ($result as $row) {
-                // Asignar cada columna a una variable
-                $ids[] = $row['id'];
-                $fecha_00 = $row['fecha_inicial'];
-                $fechas_inicial[] = $fecha_00 -> format ('Y-m-d');
-                $fecha_01 = $row['fecha_final'];
-                $fechas_finales[] = $fecha_01 -> format ('Y-m-d');  // Este será un objeto DateTime
-                $colaboracion[] = $row['colaboracion'];
-                $productos[] = $row['Nombre'];
-                $color[] = $row['Color'];
-                $marca[] = $row['Marca'];
-                $tipos_productos[] = $row['tipo_producto'];
-
-            }
-
-            $_SESSION['id_ma'] = $ids;
-            $_SESSION['fecha_in_ma'] = $fechas_inicial;
-            $_SESSION['fecha_fi_ma'] = $fechas_finales;
-            $_SESSION['colaboracion_ma'] = $colaboracion;
-            $_SESSION['producto_ma'] = $productos;
-            $_SESSION['color_ma'] = $color;
-            $_SESSION['marca_ma'] = $marca;
-            $_SESSION['tipo_pr_ma'] = $tipos_productos;
-
-            print_r($_SESSION);  
-            die();
-
         }
         ob_end_clean();
-        echo json_encode($_SESSION);
+        echo json_encode($_SESSION['marketing']);
         break;
 }
 

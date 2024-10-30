@@ -7,17 +7,49 @@ function informacion(){
         dataType: "json",
         success: function(data){
             console.log("AJAX success", data);
-            console.log(data);
+            const table = document.getElementById("tabla_datos");
 
-            id_ma = data.id_ma;
-            fecha_in_ma = data.fecha_in_ma;
-            fecha_fi_ma = data.fecha_fi_ma;
-            colab_ma = data.colab_ma;
-            producto_ma = data.producto_ma;
-            color_ma = data.colab_ma;
-            marca_ma = data.marca_ma;
-            tipo_pr_ma = data.tipo_pr_ma;
+            data.forEach(row => {
+                
+                const table_row = document.createElement("tr");
 
+                Object.values(row).forEach(celldata => {
+
+                    const cell = document.createElement("td");
+                    cell.textContent = celldata;
+                    table_row.appendChild(cell);
+
+                });
+                //creacion de los botones
+
+                const edit_cell = document.createElement("td");
+                const boton_01 = document.createElement("button");
+                boton_01.textContent = "Eliminar";
+                boton_01.classList.add("btn-comun");
+                boton_01.id = "eliminar";
+                boton_01.onclick = function(){
+                    console.log("eliminando", row.id);
+                };
+                edit_cell.appendChild(boton_01);
+                table_row.appendChild(edit_cell);
+
+                const deleted_cell = document.createElement("td");
+                const boton_02 = document.createElement("button");
+                boton_02.textContent = "modificar";
+                boton_02.classList.add("btn-comun");
+                boton_02.id = "modificar";
+                boton_02.onclick = function(){
+                    console.log("modificando", row.id);
+                }
+                deleted_cell.appendChild(boton_02);
+                table_row.appendChild(deleted_cell);
+
+                table.appendChild(table_row);
+
+            });
+        },
+        error: function(xhr, status, error){
+            console.error("Error en la solicitud AJAX:", error);
         }
     });
 }

@@ -15,21 +15,23 @@
     <?php
     include "navbar.php";
     ?>
-    <div class="content">
-
-        <table>
-            <tr>
-                <td>ID</td>
-                <td>Fecha inicial</td>
-                <td>Fehca final</td>
-                <td>Colaboracion</td>
-                <td>Producto</td>
-                <td>Color</td>
-                <td>Marca</td>
-                <td>Tipo de producto</td>
-            </tr>
-        </table>
-
+    <div class="content_00">
+        <div class="content_01">
+            <table id="tabla_datos">
+                <tr>
+                    <td>ID</td>
+                    <td>Fecha inicial</td>
+                    <td>Fehca final</td>
+                    <td>Colaboracion</td>
+                    <td>Producto</td>
+                    <td>Color</td>
+                    <td>Marca</td>
+                    <td>Tipo de producto</td>
+                    <td>Eliminar</td>
+                    <td>Modificar</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </body>
 
