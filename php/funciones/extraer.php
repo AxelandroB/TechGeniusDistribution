@@ -105,6 +105,11 @@ switch($_POST['comprobar']){
         ob_end_clean();
         echo json_encode($_SESSION['marketing']);
         break;
+
+    case 'control':
+
+        $consulta_02 = 
+        break;
 }
 
 ?>
