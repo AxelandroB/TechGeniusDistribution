@@ -1,22 +1,112 @@
-function informacion(){
-    alert("hola");
+function informacion() {
     $.ajax({
         url: "funciones/extraer.php",
-        data: { 'comprobar': 'logistica'},
+        data: { 'comprobar': 'logistica' },
         type: "POST",
         dataType: "json",
-        success: function(data){
+        success: function(data) {
             console.log("AJAX success", data);
-            console.log(data);
+            const table = document.getElementById("tabla_datos");
 
-            id_lo = data.id_lo;
-            medio_lo = data.medio_lo;
-            fecha_lo = data.fecha_lo;
-            cant_lo = data.cant_lo;
-            capacidad_lo = data.capacidad_lo;
-            empresa_lo = data.empresa_lo;
-            producto_lo = data.producto_lo;
+            data.forEach(row => {
+                const tableRow = document.createElement("tr");
 
+                const cellId = document.createElement("td");
+                cellId.textContent = row.id;
+                tableRow.appendChild(cellId);
+
+                const cellEmpresa = document.createElement("td");
+                cellEmpresa.textContent = row.empresa;
+                tableRow.appendChild(cellEmpresa);
+
+                const cellMedio = document.createElement("td");
+                cellMedio.textContent = row.medio;
+                tableRow.appendChild(cellMedio);
+
+                const cellFecha = document.createElement("td");
+                cellFecha.textContent = row.fecha_entrada;
+                tableRow.appendChild(cellFecha);
+
+                const cellProducto = document.createElement("td");
+                cellProducto.textContent = row.producto;
+                tableRow.appendChild(cellProducto);
+
+                const cellCantidad = document.createElement("td");
+                cellCantidad.textContent = row.cantidad;
+                tableRow.appendChild(cellCantidad);
+
+                const cellCapacidad = document.createElement("td");
+                cellCapacidad.textContent = row.capacidad;
+                tableRow.appendChild(cellCapacidad);
+
+                const editCell = document.createElement("td");
+                const btnEliminar = document.createElement("button");
+                btnEliminar.textContent = "Eliminar";
+                btnEliminar.classList.add("btn_eliminar");
+                editCell.appendChild(btnEliminar);
+                tableRow.appendChild(editCell);
+
+                const modifyCell = document.createElement("td");
+                const btnModificar = document.createElement("button");
+                btnModificar.textContent = "Modificar";
+                btnModificar.classList.add("btn_modificar");
+                modifyCell.appendChild(btnModificar);
+                tableRow.appendChild(modifyCell);
+
+                table.appendChild(tableRow);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error("Error en la solicitud AJAX:", error);
         }
     });
 }
+document.addEventListener('DOMContentLoaded', function() {
+    const btnAgregar = document.getElementById('btnAgregar');
+    const formulario = document.getElementById('formulario');
+    const btnOcultar = document.getElementById('btnOcultar'); // Agregar referencia al botón Ocultar
+
+    // Verifica si los elementos fueron encontrados
+    if (!btnAgregar || !formulario || !btnOcultar) {
+        console.error("No se encontraron los elementos en el DOM.");
+        return;
+    }
+
+    // Muestra el formulario al hacer clic en "Agregar"
+    btnAgregar.addEventListener('click', () => {
+        if (formulario.style.display === 'none' || formulario.style.display === '') {
+            formulario.style.display = 'block'; // Mostrar el formulario
+        } else {
+            formulario.style.display = 'none'; // Ocultar el formulario
+        }
+    });
+
+    // Oculta el formulario al hacer clic en "Ocultar"
+    btnOcultar.addEventListener('click', () => {
+        formulario.style.display = 'none'; // Ocultar el formulario
+    });
+
+    // Validación del formulario antes de enviar
+    formulario.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Verifica si todos los campos están llenos
+        let allFilled = true;
+        Array.from(formulario.elements).forEach(element => {
+            if (element.tagName === 'INPUT' && element.type !== 'submit' && !element.value) {
+                allFilled = false;
+            }
+        });
+
+        if (!allFilled) {
+            alert("Por favor, complete todos los campos.");
+            return;
+        }
+
+        // Confirmación antes de enviar
+        const confirmacion = confirm("¿Estás seguro de que deseas ingresar estos datos?");
+        if (confirmacion) {
+            formulario.submit(); // Envía el formulario si se confirma
+        }
+    });
+});

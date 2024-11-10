@@ -1,64 +1,39 @@
 <?php
+session_start(); // Asegúrate de iniciar la sesión
 
 require_once '../env.php';
 
-switch($_POST['comprobar']){
-
+switch($_POST['comprobar']) {
     case 'logistica':
-        
-        $consulta_00 = "SELECT LogisticaDistribucion.id ,LogisticaDistribucion.medio, LogisticaDistribucion.fecha_entrada, LogisticaDistribucion.cantidad, LogisticaDistribucion.capacidad, Empresas.Nombre AS empresa, Productos.Nombre AS producto FROM LogisticaDistribucion
-        INNER JOIN Empresas ON LogisticaDistribucion.id_empresa = Empresas.ID
-        INNER JOIN Productos ON LogisticaDistribucion.id_producto = Productos.ID";
+        $consulta_00 = "SELECT LogisticaDistribucion.id, LogisticaDistribucion.medio, 
+                        LogisticaDistribucion.fecha_entrada, LogisticaDistribucion.cantidad, 
+                        LogisticaDistribucion.capacidad, Empresas.Nombre AS empresa, 
+                        Productos.Nombre AS producto 
+                        FROM LogisticaDistribucion
+                        INNER JOIN Empresas ON LogisticaDistribucion.id_empresa = Empresas.ID
+                        INNER JOIN Productos ON LogisticaDistribucion.id_producto = Productos.ID";
 
         $stmt_00 = sqlsrv_prepare($conexion, $consulta_00);
 
-        if(sqlsrv_execute($stmt_00) === false){
-            echo "error";
-            print_r(sqlsrv_errors());
+        if(sqlsrv_execute($stmt_00) === false) {
+            echo json_encode(['error' => 'Error en consulta SQL']);
             die();
-        }
-        else{
-
+        } else {
             $result = [];
-
-            while($row = sqlsrv_fetch_array($stmt_00, SQLSRV_FETCH_ASSOC)){
-
-                $result[] = $row;
-
+            while($row = sqlsrv_fetch_array($stmt_00, SQLSRV_FETCH_ASSOC)) {
+                $result[] = [
+                    'id' => $row['id'],
+                    'medio' => $row['medio'],
+                    'fecha_entrada' => $row['fecha_entrada']->format('Y-m-d'),
+                    'cantidad' => $row['cantidad'],
+                    'capacidad' => $row['capacidad'],
+                    'empresa' => $row['empresa'],
+                    'producto' => $row['producto']
+                ];
             }
-            
-            $ids = [];
-            $medios = [];
-            $fechas_entrada = [];
-            $cantidades = [];
-            $capacidades = [];
-            $empresas = [];
-            $productos = [];
-
-            foreach ($result as $row) {
-                // Asignar cada columna a una variable
-                $ids[] = $row['id'];
-                $medios[] = $row['medio'];
-                $fecha = $row['fecha_entrada'];
-                $fechas_entrada[] = $fecha -> format ('Y-m-d'); // Este será un objeto DateTime
-                $cantidades[] = $row['cantidad'];
-                $capacidades[] = $row['capacidad'];
-                $empresas[] = $row['empresa'];
-                $productos[] = $row['producto'];
-            
-            }
-
-            $_SESSION['id_lo'] = $ids;
-            $_SESSION['medio_lo'] = $medios;
-            $_SESSION['fecha_lo'] = $fechas_entrada;
-            $_SESSION['cant_lo'] = $cantidades;
-            $_SESSION['capacidad_lo'] = $capacidades;
-            $_SESSION['empresa_lo'] = $empresas;
-            $_SESSION['producto_lo'] = $productos;  
-
+            // Envía los datos como JSON
+            echo json_encode($result);
         }
-        ob_end_clean();
-        echo json_encode($_SESSION);
         break;
     
     case 'marketing':
@@ -107,8 +82,8 @@ switch($_POST['comprobar']){
         break;
 
     case 'control':
-
-        $consulta_02 = 
+        // Mensaje temporal para que el caso 'control' esté manejado
+        echo json_encode(['error' => 'Consulta para "control" no definida aún']);
         break;
 }
 
