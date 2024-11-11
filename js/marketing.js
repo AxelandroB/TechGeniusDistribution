@@ -1,5 +1,4 @@
 function informacion(){
-    alert("hola");
     $.ajax({
         url: "funciones/extraer.php",
         data: { 'comprobar': 'marketing'},

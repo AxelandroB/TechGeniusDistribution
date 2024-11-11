@@ -43,6 +43,8 @@ function informacion() {
                 const btnEliminar = document.createElement("button");
                 btnEliminar.textContent = "Eliminar";
                 btnEliminar.classList.add("btn_eliminar");
+                btnEliminar.id = "eliminar";
+                btnEliminar.onclick = function() { eliminar(row.id, tableRow)};
                 editCell.appendChild(btnEliminar);
                 tableRow.appendChild(editCell);
 
@@ -61,6 +63,36 @@ function informacion() {
         }
     });
 }
+
+function eliminar(id, tableRow){
+
+    // Confirmación antes de borrar
+    if (!confirm("¿Estás seguro de que deseas eliminar este registro?")) {
+        return;
+    }
+
+    console.log("eliminando", id);
+
+    $.ajax({
+        url: "funciones/eliminar_registro.php",
+        data: { 'comprobar': 'logistica', 'id': id },
+        type: "POST",
+        dataType: "json",
+        success: function(response) {
+            if(response.success){
+
+                // Eliminar la fila en la interfaz
+                tableRow.remove();
+                console.log("Registro eliminado exitosamente.");
+            } else {
+
+                console.error("Error en la eliminación:", response.error);
+
+            }
+        }
+    })
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     const btnAgregar = document.getElementById('btnAgregar');
     const formulario = document.getElementById('formulario');
