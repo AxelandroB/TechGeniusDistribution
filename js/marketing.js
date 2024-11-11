@@ -75,9 +75,11 @@ function eliminar(id, tableRow) {
         return;
     }
 
+    console.log("eliminando", id);
+
     $.ajax({
         url: "funciones/eliminar_registro.php",
-        data: { 'id': id },
+        data: { 'comprobar': 'marketing', 'id': id },
         type: "POST",
         dataType: "json",
         success: function(response) {

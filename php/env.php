@@ -1,10 +1,10 @@
 <?php
 
-$SERVER = "ACKERLY"; // Escapa la barra invertida en el nombre del servidor
+$SERVER = "DESKTOP-QB22C4J"; // Escapa la barra invertida en el nombre del servidor
 $CONNECT = array(
     "Database" => "Techgenius_Distribution_SA",
     "UID" => "sa", // Cambié "Usuario" a "UID"
-    "PWD" => "cris" // Cambié "contraseña" a "PWD"
+    "PWD" => "1234" // Cambié "contraseña" a "PWD"
 );
 
 // Establecer la conexión
