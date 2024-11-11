@@ -1,5 +1,5 @@
 <?php
-session_start(); // Asegúrate de iniciar la sesión
+session_start(); 
 
 require_once '../env.php';
 
@@ -36,55 +36,41 @@ switch($_POST['comprobar']) {
         }
         break;
     
-    case 'marketing':
+        case 'marketing':
         
-        $consulta_01 = "SELECT Marketing.id, Marketing.fecha_final, Marketing.fecha_inicial, Marketing.colaboracion, Productos.Nombre, Productos.Color, Productos.Marca, Tipos_Productos.nombre AS tipo_producto FROM Marketing 
-        INNER JOIN Productos ON Marketing.id_producto = Productos.id
-        INNER JOIN Tipos_Productos ON Productos.id_tipo_producto = Tipos_Productos.id";
-
-        $stmt_01 = sqlsrv_prepare($conexion, $consulta_01);
-
-        if(sqlsrv_execute($stmt_01) === false){
-            echo "error";
-            print_r(sqlsrv_errors());
-            die();
-        }
-        else{
-
-            $result = [];
-
-            while($row = sqlsrv_fetch_array($stmt_01, SQLSRV_FETCH_ASSOC)){
-
-                if($row['fecha_inicial'] instanceof DateTime){
-                    $row['fecha_inicial'] = $row['fecha_inicial']-> format ('Y-m-d');
-                }
-                if($row['fecha_final'] instanceof DateTime){
-                    $row['fecha_final'] = $row['fecha_final']-> format ('Y-m-d');
-                }
-
-                $result[] = [
-                    'id' => $row['id'],
-                    'fecha_inicial' => $row['fecha_inicial'],
-                    'fecha_final' => $row['fecha_final'],
-                    'colaboracion' => $row['colaboracion'],
-                    'producto' => $row['Nombre'],
-                    'color' => $row['Color'],
-                    'marca' => $row['Marca'],
-                    'tipo_producto' => $row['tipo_producto'],
-                ];
+            $consulta_01 = "SELECT Marketing.id, Marketing.fecha_final, Marketing.fecha_inicial, Marketing.colaboracion, Productos.Nombre, Productos.Color, Productos.Marca, Tipos_Productos.nombre AS tipo_producto FROM Marketing 
+            INNER JOIN Productos ON Marketing.id_producto = Productos.id
+            INNER JOIN Tipos_Productos ON Productos.id_tipo_producto = Tipos_Productos.id";
+    
+            $stmt_01 = sqlsrv_prepare($conexion, $consulta_01);
+    
+            if(sqlsrv_execute($stmt_01) === false){
+                echo json_encode(['error' => 'Error en consulta SQL']);
+                die();
             }
-
-            $_SESSION['marketing'] = $result; 
-            
-        }
-        ob_end_clean();
-        echo json_encode($_SESSION['marketing']);
-        break;
-
-    case 'control':
-        // Mensaje temporal para que el caso 'control' esté manejado
-        echo json_encode(['error' => 'Consulta para "control" no definida aún']);
-        break;
-}
+            else{
+                $result = [];
+                while($row = sqlsrv_fetch_array($stmt_01, SQLSRV_FETCH_ASSOC)){
+                    if($row['fecha_inicial'] instanceof DateTime){
+                        $row['fecha_inicial'] = $row['fecha_inicial']->format('Y-m-d');
+                    }
+                    if($row['fecha_final'] instanceof DateTime){
+                        $row['fecha_final'] = $row['fecha_final']->format('Y-m-d');
+                    }
+                    $result[] = [
+                        'id' => $row['id'],
+                        'fecha_inicial' => $row['fecha_inicial'],
+                        'fecha_final' => $row['fecha_final'],
+                        'colaboracion' => $row['colaboracion'],
+                        'producto' => $row['Nombre'],
+                        'color' => $row['Color'],
+                        'marca' => $row['Marca'],
+                        'tipo_producto' => $row['tipo_producto']
+                    ];
+                }
+                echo json_encode($result);
+            }
+            break;
+    }
 
 ?>

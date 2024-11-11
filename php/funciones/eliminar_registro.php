@@ -1,26 +1,24 @@
 <?php
-
-session_start(); // Asegúrate de iniciar la sesión
-
 require_once '../env.php';
 
-switch($_POST['comprobar']) {
-    case 'logistica':
+$id = $_POST['id'] ?? null;
 
-        $id = $_POST['id'];
+if ($id) {
+    $consulta = "DELETE FROM Marketing WHERE id = ?";
+    $params = array($id);
 
-        $consulta_00 = "DELETE FROM LogisticaDistribucion WHERE id = ?";
+    $resultado = sqlsrv_query($conexion, $consulta, $params);
 
-        $stmt_00 = sqlsrv_prepare($conexion, $consulta_00, array(&$id));
-
-        if(sqlsrv_execute($stmt_00) === false) {
-            echo json_encode(['error' => 'Error en consulta SQL']);
-            die();
-        } else {
-            echo json_encode(['success' => true]);
-        }
-        break;
+    if ($resultado) {
+        echo json_encode(['status' => 'success', 'message' => 'Registro eliminado correctamente.']);
+    } else {
+        $errors = sqlsrv_errors();
+        echo json_encode(['status' => 'error', 'message' => 'Error al eliminar el registro.', 'details' => $errors]);
+    }
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'ID no proporcionado.']);
 }
 
 
+sqlsrv_close($conexion);
 ?>
