@@ -4,7 +4,6 @@ body{
     background-color: rgb(219, 219, 219);
     font-family: "Open Sans", system-ui;
 }
-
 @media screen and (max-width: 1700px){
   
     .pfp_photo{
@@ -16,12 +15,34 @@ body{
         margin-right: 10%;
   
     }
+    .linea{
+        margin-top: 200px;   
+    }
+    .btn{
+        margin-left: 1010%;
+        margin-right: 10%;
+        }
+}
+@media screen and (max-width: 3700px){
+  
+    .pfp_photo{
+        margin-left: 60%;
+        margin-right: 10%;  
+    }
+    .btneff{
+        margin-left: 52.3%;
+        margin-right: 10%;
+  
+    }
+    .botonesp{
+        margin-right: 2%;
+    }
  
     .linea{
-        background: linear-gradient(90deg, rgb(94, 243, 102) 50%, rgb(219, 219, 219)50%);   
-}
+        margin-top: 200px;   
+    }
 .btn{
-    margin-left: 100%;
+    margin-left: 1010%;
     margin-right: 10%;
     }
 }
@@ -78,7 +99,7 @@ img{
     margin-left: 100px;
 }
 #Back_24{
-    position: relative;
+    position: absolute;
     margin-left: 30px;
     margin-top: 30px;
     transition: 0.5s;
@@ -167,9 +188,7 @@ ul{
 
 .btn{
     display: flex;
-    position: absolute;  
-    justify-content: center;
-    margin-left: 1000px;
+    position: relative;      
     margin-top: 495px;
     padding: 10px 10px 10px 10px;
     background-color: rgb(188, 188, 188);
