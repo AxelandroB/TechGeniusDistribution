@@ -10,7 +10,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'sesion_cerrada') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil</title>
-    <link rel="stylesheet" href="../css/Perfil.css">
+    <link rel="stylesheet" href="css/Perfil.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../js/perfil.js"></script>
 </head>
@@ -55,7 +55,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'sesion_cerrada') {
                 </div>
                 <div class="linea" id="banl">
 
-                    <h1>Perfil</h1>
+                    <h1 id = "per">Perfil</h1>
                 </div>
             </div>
             <div class="box">
@@ -87,6 +87,8 @@ if (isset($_GET['message']) && $_GET['message'] == 'sesion_cerrada') {
         var infozzz = document.getElementById('datingos');
         var infozz2 = document.getElementById('datingos2');
         var baku = document.getElementById('Back_24');
+        var prf = document.getElementById('per');
+
         function goback() {
 
             location.href = "home.php";
@@ -113,6 +115,9 @@ if (isset($_GET['message']) && $_GET['message'] == 'sesion_cerrada') {
 
             baku.style.filter = "invert(100)"
             baku.style.transition = "0.4s"
+
+            prf.style.filter = "invert(100)";
+            prf.style.transition = "0.4s";
         }
 
         function daycore() {
@@ -122,7 +127,6 @@ if (isset($_GET['message']) && $_GET['message'] == 'sesion_cerrada') {
 
             lin.style.background = "rgb(94, 243, 102)"
             lin.style.transition = "0.4s";
-
             sun.style.filter = "invert(0)";
             moonn.style.filter = "invert(0)";
             sun.style.transition = "0.4s";
@@ -136,6 +140,9 @@ if (isset($_GET['message']) && $_GET['message'] == 'sesion_cerrada') {
 
             baku.style.filter = "invert(0)"
             baku.style.transition = "0.4s"
+
+            prf.style.filter = "invert(0)";
+            prf.style.transition = "0.4s";
         }
     </script>
 </body>
