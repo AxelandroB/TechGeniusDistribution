@@ -1,8 +1,7 @@
 function informacion(){
-    alert("hola");
     $.ajax({
         url: "funciones/extraer.php",
-        data: { 'comprobar': 'marketing'},
+        data: { 'comprobar': 'control'},
         type: "POST",
         dataType: "json",
         success: function(data){
