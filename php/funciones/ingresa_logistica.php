@@ -11,11 +11,19 @@ $Unidades = $_POST['Unidades'] ?? null;
 $Capacidad = $_POST['capacidad'] ?? null;
 
 if ($ID && $Id_empresa && $Transporte && $Fecha && $Producto && $Unidades && $Capacidad) {
-    // Inserta los datos en la base de datos incluyendo la capacidad
+    // Comprobar si el ID ya existe
+    $consultaVerificar = "SELECT id FROM LogisticaDistribucion WHERE id = ?";
+    $stmtVerificar = sqlsrv_query($conexion, $consultaVerificar, array($ID));
+
+    if (sqlsrv_fetch($stmtVerificar)) {
+        echo json_encode(['status' => 'error', 'message' => 'El ID ya existe en la base de datos.']);
+        exit;
+    }
+
+    // Insertar datos si el ID es único
     $consulta = "INSERT INTO LogisticaDistribucion (id, id_empresa, medio, fecha_entrada, id_producto, cantidad, capacidad) 
                  VALUES (?, ?, ?, ?, ?, ?, ?)";
     $params = array($ID, $Id_empresa, $Transporte, $Fecha, $Producto, $Unidades, $Capacidad);
-
     $Resultado = sqlsrv_query($conexion, $consulta, $params);
 
     if ($Resultado) {
@@ -29,4 +37,5 @@ if ($ID && $Id_empresa && $Transporte && $Fecha && $Producto && $Unidades && $Ca
 }
 
 sqlsrv_close($conexion);
+
 ?>

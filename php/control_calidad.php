@@ -19,7 +19,8 @@
         <!-- Botón Agregar -->
     
         <!-- Formulario (inicialmente oculto) -->
-        <form id="formulario" action="funciones/ingresa_logistica.php" method="post" style="display: none;">
+        <form id="formulario" action="funciones/ingresa_control.php" method="post" style="display: none;">
+
             <h2>Ingrese datos a agregar</h2>
             <label>Nro.Registro</label>
             <input type="text" placeholder="Escriba el id:" name="ID" required>
