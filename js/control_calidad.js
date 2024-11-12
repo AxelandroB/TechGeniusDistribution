@@ -1,54 +1,140 @@
-function informacion(){
+function informacion() {
     $.ajax({
         url: "funciones/extraer.php",
-        data: { 'comprobar': 'control'},
+        data: { 'comprobar': 'control' },
         type: "POST",
         dataType: "json",
-        success: function(data){
+        success: function(data) {
             console.log("AJAX success", data);
             const table = document.getElementById("tabla_datos");
 
             data.forEach(row => {
-                
-                const table_row = document.createElement("tr");
+                const tableRow = document.createElement("tr");
 
-                Object.values(row).forEach(celldata => {
+                const cellId = document.createElement("td");
+                cellId.textContent = row.id;
+                tableRow.appendChild(cellId);
 
-                    const cell = document.createElement("td");
-                    cell.textContent = celldata;
-                    table_row.appendChild(cell);
+                const cellEmpresa = document.createElement("td");
+                cellEmpresa.textContent = row.producto;
+                tableRow.appendChild(cellEmpresa);
 
-                });
-                //creacion de los botones
+                const cellMedio = document.createElement("td");
+                cellMedio.textContent = row.proveedor;
+                tableRow.appendChild(cellMedio);
 
-                const edit_cell = document.createElement("td");
-                const boton_01 = document.createElement("button");
-                boton_01.textContent = "Eliminar";
-                boton_01.classList.add("btn-comun");
-                boton_01.id = "eliminar";
-                boton_01.onclick = function(){
-                    console.log("eliminando", row.id);
-                };
-                edit_cell.appendChild(boton_01);
-                table_row.appendChild(edit_cell);
+                const cellFecha = document.createElement("td");
+                cellFecha.textContent = row.cantidad;
+                tableRow.appendChild(cellFecha);
 
-                const deleted_cell = document.createElement("td");
-                const boton_02 = document.createElement("button");
-                boton_02.textContent = "modificar";
-                boton_02.classList.add("btn-comun");
-                boton_02.id = "modificar";
-                boton_02.onclick = function(){
-                    console.log("modificando", row.id);
-                }
-                deleted_cell.appendChild(boton_02);
-                table_row.appendChild(deleted_cell);
+                const cellProducto = document.createElement("td");
+                cellProducto.textContent = row.tipo;
+                tableRow.appendChild(cellProducto);
 
-                table.appendChild(table_row);
+                const cellCantidad = document.createElement("td");
+                cellCantidad.textContent = row.estado;
+                tableRow.appendChild(cellCantidad);
 
+                const editCell = document.createElement("td");
+                const btnEliminar = document.createElement("button");
+                btnEliminar.textContent = "Eliminar";
+                btnEliminar.classList.add("btn_eliminar");
+                btnEliminar.id = "eliminar";
+                btnEliminar.onclick = function() { eliminar(row.id, tableRow)};
+                editCell.appendChild(btnEliminar);
+                tableRow.appendChild(editCell);
+
+                const modifyCell = document.createElement("td");
+                const btnModificar = document.createElement("button");
+                btnModificar.textContent = "Modificar";
+                btnModificar.classList.add("btn_modificar");
+                modifyCell.appendChild(btnModificar);
+                tableRow.appendChild(modifyCell);
+
+                table.appendChild(tableRow);
             });
         },
-        error: function(xhr, status, error){
+        error: function(xhr, status, error) {
             console.error("Error en la solicitud AJAX:", error);
         }
     });
 }
+
+function eliminar(id, tableRow){
+
+    // Confirmación antes de borrar
+    if (!confirm("¿Estás seguro de que deseas eliminar este registro?")) {
+        return;
+    }
+
+    console.log("eliminando", id);
+
+    $.ajax({
+        url: "funciones/eliminar_registro.php",
+        data: { 'comprobar': 'control', 'id': id },
+        type: "POST",
+        dataType: "json",
+        success: function(response) {
+            if(response.success){
+
+                // Eliminar la fila en la interfaz
+                tableRow.remove();
+                console.log("Registro eliminado exitosamente.");
+            } else {
+
+                console.error("Error en la eliminación:", response.error);
+
+            }
+        }
+    })
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    const btnAgregar = document.getElementById('btnAgregar');
+    const formulario = document.getElementById('formulario');
+    const btnOcultar = document.getElementById('btnOcultar'); // Agregar referencia al botón Ocultar
+
+    // Verifica si los elementos fueron encontrados
+    if (!btnAgregar || !formulario || !btnOcultar) {
+        console.error("No se encontraron los elementos en el DOM.");
+        return;
+    }
+
+    // Muestra el formulario al hacer clic en "Agregar"
+    btnAgregar.addEventListener('click', () => {
+        if (formulario.style.display === 'none' || formulario.style.display === '') {
+            formulario.style.display = 'block'; // Mostrar el formulario
+        } else {
+            formulario.style.display = 'none'; // Ocultar el formulario
+        }
+    });
+
+    // Oculta el formulario al hacer clic en "Ocultar"
+    btnOcultar.addEventListener('click', () => {
+        formulario.style.display = 'none'; // Ocultar el formulario
+    });
+
+    // Validación del formulario antes de enviar
+    formulario.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Verifica si todos los campos están llenos
+        let allFilled = true;
+        Array.from(formulario.elements).forEach(element => {
+            if (element.tagName === 'INPUT' && element.type !== 'submit' && !element.value) {
+                allFilled = false;
+            }
+        });
+
+        if (!allFilled) {
+            alert("Por favor, complete todos los campos.");
+            return;
+        }
+
+        // Confirmación antes de enviar
+        const confirmacion = confirm("¿Estás seguro de que deseas ingresar estos datos?");
+        if (confirmacion) {
+            formulario.submit(); // Envía el formulario si se confirma
+        }
+    });
+});

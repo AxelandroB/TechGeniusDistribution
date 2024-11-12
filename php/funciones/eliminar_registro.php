@@ -38,6 +38,21 @@ switch($_POST['comprobar']) {
         }
         break;
 
+    case 'control':
+
+        $id = $_POST['id'];
+
+        $consulta_01 = "DELETE FROM Control_Calidad WHERE ID = ?";
+        $stmt_01 = sqlsrv_prepare($conexion, $consulta_01, array(&$id));
+
+        if(sqlsrv_execute($stmt_01) === false) {
+            echo json_encode(['error' => 'Error en consulta SQL']);
+            die();
+        } else {
+            echo json_encode(['success' => true]);
+        }
+        break;
+
 }
 sqlsrv_close($conexion);
 ?>

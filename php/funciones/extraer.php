@@ -81,13 +81,13 @@ switch($_POST['comprobar']) {
 
         $stmt_02 = sqlsrv_prepare($conexion, $consulta_02);
 
-        if(sqlsrv_execute($stmt_01) === false){
+        if(sqlsrv_execute($stmt_02) === false){
             echo json_encode(['error' => 'Error en consulta SQL']);
             die();
         }
         else{
             $result = [];
-            while($row = sqlsrv_fetch_array($stmt_01, SQLSRV_FETCH_ASSOC)){
+            while($row = sqlsrv_fetch_array($stmt_02, SQLSRV_FETCH_ASSOC)){
                 $result[] = [
                     'id' => $row['id'],
                     'producto' => $row['Nombre'],
