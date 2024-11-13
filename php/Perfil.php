@@ -21,7 +21,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'sesion_cerrada') {
         <div class="container">
             <div class="pfp_photo">
                 <input type="file" id="file" />
-                <img src="images/pfp.jpg" alt="" id="photo">
+                <img src="../images/pfp.jpg" alt="" id="photo">
             </div>
             <input type="button" value="Cambiar foto" class="btneff" onclick="document.getElementById('file').click()">
 
