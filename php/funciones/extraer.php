@@ -8,10 +8,15 @@ switch($_POST['comprobar']) {
         $consulta_00 = "SELECT LogisticaDistribucion.id, LogisticaDistribucion.medio, 
                         LogisticaDistribucion.fecha_entrada, LogisticaDistribucion.cantidad, 
                         LogisticaDistribucion.capacidad, Empresas.Nombre AS empresa, 
-                        Productos.Nombre AS producto 
+                        Productos.Nombre AS producto,
+						Almacen.fecha_salida AS fecha_salida,
+						Sucursales.nombre AS destino
                         FROM LogisticaDistribucion
                         INNER JOIN Empresas ON LogisticaDistribucion.id_empresa = Empresas.ID
-                        INNER JOIN Productos ON LogisticaDistribucion.id_producto = Productos.ID";
+                        INNER JOIN Productos ON LogisticaDistribucion.id_producto = Productos.ID
+						INNER JOIN Almacen ON LogisticaDistribucion.id = Almacen.id_LD
+						INNER JOIN Sucursales ON Almacen.id_sucursal = Sucursales.id
+                        ORDER BY LogisticaDistribucion.id";
 
         $stmt_00 = sqlsrv_prepare($conexion, $consulta_00);
 
@@ -28,7 +33,9 @@ switch($_POST['comprobar']) {
                     'cantidad' => $row['cantidad'],
                     'capacidad' => $row['capacidad'],
                     'empresa' => $row['empresa'],
-                    'producto' => $row['producto']
+                    'producto' => $row['producto'],
+                    'fecha_salida' => $row['fecha_salida']->format('Y-m-d'),
+                    'destino' => $row['destino']
                 ];
             }
             // Envía los datos como JSON

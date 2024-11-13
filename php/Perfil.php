@@ -78,7 +78,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'sesion_cerrada') {
             </div>
         </div>
     </div>
-    <script src="js\pfpchange.js"></script>
+    <script src="..\js\pfpchange.js"></script>
     <script>
         var body = document.getElementById('bgcol');
         var lin = document.getElementById('banl');

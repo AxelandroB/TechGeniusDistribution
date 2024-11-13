@@ -54,10 +54,12 @@
                     <th>ID</th>
                     <th>Empresa</th>
                     <th>Medio</th>
-                    <th>Fecha Ingreso</th>
+                    <th>Fecha Ingreso Almacen</th>
                     <th>Producto</th>
                     <th>Cantidad</th>
                     <th>Capacidad</th>
+                    <th>Fecha Salida Almacen</th>
+                    <th>Destino</th>
                     <th></th>
                     <th></th>
                 </tr>

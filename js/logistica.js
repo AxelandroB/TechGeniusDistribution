@@ -39,6 +39,14 @@ function informacion() {
                 cellCapacidad.textContent = row.capacidad;
                 tableRow.appendChild(cellCapacidad);
 
+                const cellFechadestino = document.createElement("td");
+                cellFechadestino.textContent = row.fecha_salida;
+                tableRow.appendChild(cellFechadestino);
+
+                const cellDestino = document.createElement("td");
+                cellDestino.textContent = row.destino;
+                tableRow.appendChild(cellDestino);
+
                 const editCell = document.createElement("td");
                 const btnEliminar = document.createElement("button");
                 btnEliminar.textContent = "Eliminar";
