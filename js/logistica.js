@@ -101,6 +101,34 @@ function eliminar(id, tableRow){
     })
 };
 
+function agregar(id, empresa, transporte, fecha_ingreso, producto, unidades, capacidad){
+
+    if(!confirm("¿Estás seguro de que deseas agregar un nuevo registro?")) {
+        return;
+    }
+
+    console.log("Agregado", id);
+
+    $.ajax({
+        url: "funciones/agregado_registro.php",
+        data: { 'comprobar' : 'logistica', 'id': id , 'empresa' : empresa, 'transporte' : },
+        type: "POST",
+        datatype: "json",
+        success: function(response) {
+
+            if(response.success){
+
+                console.log("Registro agregado exitosamente. ");
+            } else {
+
+                console.error("Error en el agregado: ", response.error);
+
+            }
+
+        }
+    })
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     const btnAgregar = document.getElementById('btnAgregar');
     const formulario = document.getElementById('formulario');

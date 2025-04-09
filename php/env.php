@@ -1,6 +1,6 @@
 <?php
 
-$SERVER = "DESKTOP-RIVIFEH"; // Escapa la barra invertida en el nombre del servidor
+$SERVER = "DESKTOP-HHB99QT\SA"; // Escapa la barra invertida en el nombre del servidor
 $CONNECT = array(
     "Database" => "Techgenius_Distribution_SA",
     "UID" => "sa", // Cambié "Usuario" a "UID"
