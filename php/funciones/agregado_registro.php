@@ -13,8 +13,13 @@ switch($_POST['comprobar']) {
         $comprobar_registro = "SELECT id FROM LogisticaDistribucion WHERE id = ?";
         $stmt_registro = sqlsrv_prepare($conexion, $comprobar_registro, array(&$id));
 
-        if (sqlsrv_fetch($stmtVerificar)) {
-            echo json_encode(['status' => 'error', 'message' => 'El ID ya existe en la base de datos.']);
+        if(sqlsrv_execute($stmt_registro) === false) {
+            echo json_encode(['error' => 'Error en consulta de verificacion SQL']);
+            die();
+        } 
+
+        if (sqlsrv_fetch($stmt_registro)) {
+            echo json_encode(['error' => 'El ID ya existe en la base de datos.']);
             exit;
         }
 

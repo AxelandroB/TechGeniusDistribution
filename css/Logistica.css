@@ -79,24 +79,6 @@ body {
     color: #333;
 }
 
-#formulario input[type="submit"] {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    width: 100%;
-    margin-top: 15px;
-}
-
-#formulario input[type="submit"]:hover {
-    background-color: #218838;
-}
-
-
 .container2 {
     width: 80%;
     margin-top: 150px;
@@ -166,4 +148,22 @@ body {
 }
 
 #btnOcultar:hover {
-    background-color: #e0a800; }
+    background-color: #e0a800; 
+}
+
+#btnSubir {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 15px;
+}
+
+#btnSubir:hover {
+    background-color: #218838;
+}

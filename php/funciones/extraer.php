@@ -7,12 +7,8 @@ switch($_POST['comprobar']) {
     case 'logistica':
         $consulta_00 = "SELECT LogisticaDistribucion.id, LogisticaDistribucion.medio, 
                         LogisticaDistribucion.fecha_entrada, LogisticaDistribucion.cantidad, 
-                        LogisticaDistribucion.capacidad, Empresas.Nombre AS empresa, 
-                        Productos.Nombre AS producto,
-						Almacen.fecha_salida AS fecha_salida,
-						Sucursales.nombre AS destino
+                        Productos.Nombre AS producto, Sucursales.nombre AS destino
                         FROM LogisticaDistribucion
-                        INNER JOIN Empresas ON LogisticaDistribucion.id_empresa = Empresas.ID
                         INNER JOIN Productos ON LogisticaDistribucion.id_producto = Productos.ID
 						INNER JOIN Almacen ON LogisticaDistribucion.id = Almacen.id_LD
 						INNER JOIN Sucursales ON Almacen.id_sucursal = Sucursales.id
@@ -31,10 +27,7 @@ switch($_POST['comprobar']) {
                     'medio' => $row['medio'],
                     'fecha_entrada' => $row['fecha_entrada']->format('Y-m-d'),
                     'cantidad' => $row['cantidad'],
-                    'capacidad' => $row['capacidad'],
-                    'empresa' => $row['empresa'],
                     'producto' => $row['producto'],
-                    'fecha_salida' => $row['fecha_salida']->format('Y-m-d'),
                     'destino' => $row['destino']
                 ];
             }

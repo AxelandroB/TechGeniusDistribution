@@ -15,10 +15,6 @@ function informacion() {
                 cellId.textContent = row.id;
                 tableRow.appendChild(cellId);
 
-                const cellEmpresa = document.createElement("td");
-                cellEmpresa.textContent = row.empresa;
-                tableRow.appendChild(cellEmpresa);
-
                 const cellMedio = document.createElement("td");
                 cellMedio.textContent = row.medio;
                 tableRow.appendChild(cellMedio);
@@ -34,14 +30,6 @@ function informacion() {
                 const cellCantidad = document.createElement("td");
                 cellCantidad.textContent = row.cantidad;
                 tableRow.appendChild(cellCantidad);
-
-                const cellCapacidad = document.createElement("td");
-                cellCapacidad.textContent = row.capacidad;
-                tableRow.appendChild(cellCapacidad);
-
-                const cellFechadestino = document.createElement("td");
-                cellFechadestino.textContent = row.fecha_salida;
-                tableRow.appendChild(cellFechadestino);
 
                 const cellDestino = document.createElement("td");
                 cellDestino.textContent = row.destino;
@@ -111,7 +99,7 @@ function agregar(id, transporte, fecha_ingreso, producto, cantidad){
 
     $.ajax({
         url: "funciones/agregado_registro.php",
-        data: { 'comprobar' : 'logistica', 'id': id , 'transporte' : transporte, 'ingreso' : fecha_ingreso, 'producto' : producto, 'cantidad' : cantidad},
+        data: { 'comprobar' : 'logistica', 'id': id , 'transporte' : transporte, 'fecha' : fecha_ingreso, 'producto' : producto, 'cantidad' : cantidad},
         type: "POST",
         datatype: "json",
         success: function(response) {

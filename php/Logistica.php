@@ -19,32 +19,32 @@
         <form id="formulario" action="funciones/ingresa_logistica.php" method="post" style="display: none;">
             <h2>Ingrese datos a agregar</h2>
             <label>Nro.Registro</label>
-            <input type="text" placeholder="Escriba el id:" name="ID" required>
+            <input type="text" id="id" placeholder="Escriba el id:" name="ID" required>
 
             <label>Transporte</label>
-            <input type="text" placeholder="Medio de transporte:" name="Transporte" required>
+            <input type="text" id="transporte" placeholder="Medio de transporte:" name="Transporte" required>
 
             <label>Fecha de ingreso</label>
-            <input type="date" name="Fecha" required>
+            <input type="date" id="fecha" name="Fecha" required>
 
             <label>Producto</label>
-            <input type="text" placeholder="Id producto" name="Producto" required>
+            <input type="text" id="producto" placeholder="Id producto" name="Producto" required>
 
             <label>Cantidad de productos</label>
-            <input type="number" placeholder="Unidades" name="Unidades" required>
+            <input type="number" id="cantidad" placeholder="Cantidad" name="Unidades" required>
 
-            <input type="button" onclick="
+            <input type="button" id="btnSubir" onclick="
             agregar(
                 document.getElementById('id').value,
-                document.getElementById('').value,
-                document.getElementById('id').value,
-                document.getElementById('id').value,
-                document.getElementById('id').value,
+                document.getElementById('transporte').value,
+                document.getElementById('fecha').value,
+                document.getElementById('producto').value,
+                document.getElementById('cantidad').value,
             )
             "
-            
             value="Ingresar">
-            <input type="button" id="btnOcultar">Ocultar</button>
+
+            <input type="button" id="btnOcultar" value="Ocultar">
         </form>
     </div>
 
@@ -56,13 +56,10 @@
                 </tr>
                 <tr>
                     <th>ID</th>
-                    <th>Empresa</th>
                     <th>Medio</th>
                     <th>Fecha Ingreso Almacen</th>
                     <th>Producto</th>
                     <th>Cantidad</th>
-                    <th>Capacidad</th>
-                    <th>Fecha Salida Almacen</th>
                     <th>Destino</th>
                     <th></th>
                     <th></th>
