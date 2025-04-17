@@ -101,7 +101,7 @@ function eliminar(id, tableRow){
     })
 };
 
-function agregar(id, empresa, transporte, fecha_ingreso, producto, unidades, capacidad){
+function agregar(id, transporte, fecha_ingreso, producto, cantidad){
 
     if(!confirm("¿Estás seguro de que deseas agregar un nuevo registro?")) {
         return;
@@ -111,7 +111,7 @@ function agregar(id, empresa, transporte, fecha_ingreso, producto, unidades, cap
 
     $.ajax({
         url: "funciones/agregado_registro.php",
-        data: { 'comprobar' : 'logistica', 'id': id , 'empresa' : empresa, 'transporte' : },
+        data: { 'comprobar' : 'logistica', 'id': id , 'transporte' : transporte, 'ingreso' : fecha_ingreso, 'producto' : producto, 'cantidad' : cantidad},
         type: "POST",
         datatype: "json",
         success: function(response) {

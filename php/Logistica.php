@@ -21,9 +21,6 @@
             <label>Nro.Registro</label>
             <input type="text" placeholder="Escriba el id:" name="ID" required>
 
-            <label>Empresa de transporte</label>
-            <input type="text" placeholder="Escriba id de empresa" name="Id_empresa" required>
-
             <label>Transporte</label>
             <input type="text" placeholder="Medio de transporte:" name="Transporte" required>
 
@@ -36,11 +33,18 @@
             <label>Cantidad de productos</label>
             <input type="number" placeholder="Unidades" name="Unidades" required>
 
-            <label>Capacidad de producto</label>
-            <input type="number" placeholder="Unidades" name="capacidad" required>
-
-            <input type="submit" value="Ingresar">
-            <button type="button" id="btnOcultar">Ocultar</button>
+            <input type="button" onclick="
+            agregar(
+                document.getElementById('id').value,
+                document.getElementById('').value,
+                document.getElementById('id').value,
+                document.getElementById('id').value,
+                document.getElementById('id').value,
+            )
+            "
+            
+            value="Ingresar">
+            <input type="button" id="btnOcultar">Ocultar</button>
         </form>
     </div>
 
