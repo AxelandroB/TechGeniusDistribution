@@ -6,9 +6,9 @@ function informacion() {
         dataType: "json",
         success: function(data) {
             console.log("AJAX success", data);
-            const table = document.getElementById("tabla_datos");
+            const table = document.getElementById("cuerpo");
 
-            data.forEach(row => {
+            data.result.forEach(row => {
                 const tableRow = document.createElement("tr");
 
                 const cellId = document.createElement("td");
@@ -39,7 +39,7 @@ function informacion() {
                 const btnEliminar = document.createElement("button");
                 btnEliminar.textContent = "Eliminar";
                 btnEliminar.classList.add("btn_eliminar");
-                btnEliminar.id = "eliminar";
+                btnEliminar.id = "eliminar_0" + row.id;
                 btnEliminar.onclick = function() { eliminar(row.id, tableRow)};
                 editCell.appendChild(btnEliminar);
                 tableRow.appendChild(editCell);
@@ -53,6 +53,26 @@ function informacion() {
 
                 table.appendChild(tableRow);
             });
+
+            console.log("total resultados: ", data.total_resultados);
+            var total_result = data.total_resultados;
+            var max_resultado = 2;
+
+            var total_pagina = Math.ceil(total_result / max_resultado);
+            console.log("total de paginas: ", total_pagina);
+
+            const contenedor = document.getElementById("paginacion");
+            contenedor.innerHTML = "";
+
+            for (let i = 1; i <= total_pagina; i++) {
+                const btnPagina = document.createElement("button");
+                btnPagina.textContent = i;
+                btnPagina.classList.add("btn_pagina");
+                btnPagina.id = "pagina_0" + i;
+                btnPagina.onclick = function() { cambiar_pagina(i)};
+                contenedor.appendChild(btnPagina);
+
+            }
         },
         error: function(xhr, status, error) {
             console.error("Error en la solicitud AJAX:", error);
@@ -60,7 +80,74 @@ function informacion() {
     });
 }
 
-function eliminar(id, tableRow){
+function cambiar_pagina(pagina) {
+    console.log("cambiando a la pagina " + pagina);
+
+    $.ajax({
+        url: "funciones/paginador.php",
+        data: {'comprobar': 'logistica', 'pagina': pagina},
+        type: "POST",
+        dataType: "json",
+        success: function(response) {
+
+            mostrar_datos(response.result);
+        }
+    })
+}
+
+function mostrar_datos(result) {
+    const tbody = document.getElementById("cuerpo");
+    tbody.innerHTML = "";
+
+    result.forEach(row => {
+        const tableRow = document.createElement("tr");
+
+        const cellId = document.createElement("td");
+        cellId.textContent = row.id;
+        tableRow.appendChild(cellId);
+
+        const cellMedio = document.createElement("td");
+        cellMedio.textContent = row.medio;
+        tableRow.appendChild(cellMedio);
+
+        const cellFecha = document.createElement("td");
+        cellFecha.textContent = row.fecha_entrada;
+        tableRow.appendChild(cellFecha);
+
+        const cellProducto = document.createElement("td");
+        cellProducto.textContent = row.producto;
+        tableRow.appendChild(cellProducto);
+
+        const cellCantidad = document.createElement("td");
+        cellCantidad.textContent = row.cantidad;
+        tableRow.appendChild(cellCantidad);
+
+        const cellDestino = document.createElement("td");
+        cellDestino.textContent = row.destino;
+        tableRow.appendChild(cellDestino);
+
+        const editCell = document.createElement("td");
+        const btnEliminar = document.createElement("button");
+        btnEliminar.textContent = "Eliminar";
+        btnEliminar.classList.add("btn_eliminar");
+        btnEliminar.id = "eliminar_0" + row.id;
+        btnEliminar.onclick = function() { eliminar(row.id, tableRow)};
+        editCell.appendChild(btnEliminar);
+        tableRow.appendChild(editCell);
+
+        const modifyCell = document.createElement("td");
+        const btnModificar = document.createElement("button");
+        btnModificar.textContent = "Modificar";
+        btnModificar.classList.add("btn_modificar");
+        modifyCell.appendChild(btnModificar);
+        tableRow.appendChild(modifyCell);
+
+        tbody.appendChild(tableRow);
+    });
+
+}
+
+function eliminar(id, tableRow) {
 
     // Confirmación antes de borrar
     if (!confirm("¿Estás seguro de que deseas eliminar este registro?")) {
@@ -89,7 +176,7 @@ function eliminar(id, tableRow){
     })
 };
 
-function agregar(id, transporte, fecha_ingreso, producto, cantidad){
+function agregar(id, transporte, fecha_ingreso, producto, cantidad) {
 
     if(!confirm("¿Estás seguro de que deseas agregar un nuevo registro?")) {
         return;

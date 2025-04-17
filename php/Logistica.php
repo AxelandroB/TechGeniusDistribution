@@ -65,10 +65,12 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="cuerpo">
                 <!-- Aquí se cargarán los datos -->
             </tbody>
         </table>
     </div>
+
+    <div class="container3" id="paginacion"></div>
 </body>
 </html>
