@@ -139,6 +139,7 @@ function mostrar_datos(result) {
         const btnModificar = document.createElement("button");
         btnModificar.textContent = "Modificar";
         btnModificar.classList.add("btn_modificar");
+        btnModificar.id="Modificar";
         modifyCell.appendChild(btnModificar);
         tableRow.appendChild(modifyCell);
 
@@ -204,10 +205,38 @@ function agregar(id, transporte, fecha_ingreso, producto, cantidad) {
     })
 };
 
+function Modificar(id, transporte,fecha_ingreso,producto,cantidad){
+    if(!confirm("¿Estás seguro de que deseas modificar este registro?")) {
+        return;
+    }
+    console.log("Modificado:", id);
+
+    $.ajax({
+        url: "funciones/modificar_logistica.php",
+        data: {'comprobar':'logistica' , 'id':id, 'transporte' : transporte, 'fecha' : fecha_ingreso, 'producto' : producto, 'cantidad' : cantidad},
+        type:"POST",
+        datatype:"json",
+        success:function(response){
+
+            if(response.success){
+
+                console.log("Registro agregado exitosamente. ");
+            } else {
+
+                console.error("Error en el agregado: ", response.error);
+
+            }
+
+        }
+    })
+
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     const btnAgregar = document.getElementById('btnAgregar');
     const formulario = document.getElementById('formulario');
-    const btnOcultar = document.getElementById('btnOcultar'); // Agregar referencia al botón Ocultar
+    const btnOcultar = document.getElementById('btnOcultar');
+     // Agregar referencia al botón Ocultar
 
     // Verifica si los elementos fueron encontrados
     if (!btnAgregar || !formulario || !btnOcultar) {
