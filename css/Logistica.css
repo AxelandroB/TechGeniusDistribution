@@ -141,6 +141,29 @@ body {
 .btn_modificar:hover {
     background-color: #e0a800;
 }
+#paginacion {
+    display: flex;
+    flex-wrap: wrap/3; 
+    justify-content: center; 
+    gap: 10px; 
+    background-color: #f4f6f8;
+    margin-top: 20px;
+}
+
+.btn_pagina{
+    padding: 6px 12px;
+    font-size: 14px;
+    background-color: #9cda88;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.btn_pagina:hover {
+    background-color: #8fc87c;
+}
+
 #btnOcultar {
     padding: 10px 20px;
     background-color: #ffc107; 

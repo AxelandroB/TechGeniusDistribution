@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="http://localhost/Analisis_Sistemas/css/Logistica.css">
+    <link rel="stylesheet" href="http://localhost/TechGeniusDistribution/css/Logistica.css">
     <script src="../js/logistica.js"></script>
     <title>Logística</title>
 </head>
@@ -18,8 +18,8 @@
         <!-- Formulario (inicialmente oculto) -->
         <form id="formulario" action="funciones/ingresa_logistica.php" method="post" style="display: none;">
             <h2>Ingrese datos a agregar</h2>
-            <label>Nro.Registro</label>
-            <input type="text" id="id" placeholder="Escriba el id:" name="ID" required>
+           
+    
 
             <label>Transporte</label>
             <input type="text" id="transporte" placeholder="Medio de transporte:" name="Transporte" required>

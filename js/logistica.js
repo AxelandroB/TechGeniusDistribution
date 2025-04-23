@@ -44,14 +44,13 @@ function informacion() {
                 editCell.appendChild(btnEliminar);
                 tableRow.appendChild(editCell);
 
-                const modifyCell = document.createElement("td");
-                const btnModificar = document.createElement("button");
-                btnModificar.textContent = "Modificar";
-                btnModificar.classList.add("btn_modificar");
-                modifyCell.appendChild(btnModificar);
-                tableRow.appendChild(modifyCell);
+               const modifyCell = document.createElement("td");
+            const btnModificar = document.createElement("button");
+            btnModificar.textContent = "Modificar";
+            btnModificar.classList.add("btn_modificar");
+            modifyCell.appendChild(btnModificar);
+            tableRow.appendChild(modifyCell);
 
-                table.appendChild(tableRow);
             });
 
             console.log("total resultados: ", data.total_resultados);
@@ -139,8 +138,10 @@ function mostrar_datos(result) {
         const btnModificar = document.createElement("button");
         btnModificar.textContent = "Modificar";
         btnModificar.classList.add("btn_modificar");
+        btnModificar.id = "modificar_0" + row.id;
         btnModificar.id="Modificar";
         modifyCell.appendChild(btnModificar);
+        
         tableRow.appendChild(modifyCell);
 
         tbody.appendChild(tableRow);
@@ -236,6 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnAgregar = document.getElementById('btnAgregar');
     const formulario = document.getElementById('formulario');
     const btnOcultar = document.getElementById('btnOcultar');
+    
      // Agregar referencia al botón Ocultar
 
     // Verifica si los elementos fueron encontrados
@@ -252,6 +254,18 @@ document.addEventListener('DOMContentLoaded', function() {
             formulario.style.display = 'none'; // Ocultar el formulario
         }
     });
+    
+    document.addEventListener('click', function(event) {
+        if (event.target && event.target.classList.contains('btn_modificar')) {
+            if (formulario.style.display === 'none' || formulario.style.display === '') {
+                formulario.style.display = 'block';
+            } else {
+                formulario.style.display = 'none';
+            }
+        }
+    });
+   
+    
 
     // Oculta el formulario al hacer clic en "Ocultar"
     btnOcultar.addEventListener('click', () => {
@@ -282,3 +296,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+

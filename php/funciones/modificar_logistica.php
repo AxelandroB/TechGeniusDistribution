@@ -12,7 +12,7 @@ $Capacidad = $_POST['capacidad'] ?? null;
 $consulta0="UPDATE LogisticaDistribucion SET id_empresa=?, medio=?, fecha_entrada=?, id_producto=?, cantidad=?, capacidad=? 
 WHERE id=?";
 
-$params = array($ID, $Id_empresa, $Transporte, $Fecha, $Producto, $Unidades, $Capacidad);
+$params = array(array(&$id, &$id), $Id_empresa, $Transporte, $Fecha, $Producto, $Unidades, $Capacidad);
 $Resultado = sqlsrv_query($conexion, $consulta, $params);
 
 
