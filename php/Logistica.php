@@ -46,6 +46,32 @@
 
             <input type="button" id="btnOcultar" value="Ocultar">
         </form>
+        <form id="formulario_modificar" method="POST" style="display: none;">
+    <label for="id_modificar">ID:</label>
+    <input type="text" id="id_modificar" name="id" required><br>
+
+    <label for="transporte_modificar">Medio:</label>
+    <input type="text" id="medio_modificar" name="transporte" required><br>
+
+
+    <label for="fecha_modificar">Fecha de Ingreso:</label>
+    <input type="date" id="fecha_modificar" name="fecha" required><br>
+
+    <label for="producto_modificar">Producto:</label>
+    <input type="text" id="producto_modificar" name="producto" required><br>
+
+
+
+    <label for="cantidad_modificar">Cantidad:</label>
+    <input type="number" id="cantidad_modificar" name="cantidad" required><br>
+
+    <label for="destino_modificar">Destino:</label>
+    <input type="text" id="destino_modificar" name="destino" required><br>
+
+    <button type="button" id="btnModificar">Modificar</button>
+    <button type="button" id="btnOcultarModificar">Ocultar</button>
+</form>
+
     </div>
 
     <div class="container2">
