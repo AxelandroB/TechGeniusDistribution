@@ -155,7 +155,7 @@ function mostrar_datos(result) {
 
 function eliminar(id, tableRow) {
 
-    // Confirmación antes de borrar
+    
     if (!confirm("¿Estás seguro de que deseas eliminar este registro?")) {
         return;
     }
@@ -170,7 +170,6 @@ function eliminar(id, tableRow) {
         success: function(response) {
             if(response.success){
 
-                // Eliminar la fila en la interfaz
                 tableRow.remove();
                 console.log("Registro eliminado exitosamente.");
             } else {
@@ -210,73 +209,108 @@ function agregar(id, transporte, fecha_ingreso, producto, cantidad) {
     })
 };
 
-function Modificar(id, transporte,fecha_ingreso,producto,cantidad){
-    if(!confirm("¿Estás seguro de que deseas modificar este registro?")) {
-        return;
-    }
-    console.log("Modificado:", id);
+function Modificar(id, transporte, fecha, producto, cantidad, destino) {
+    const datos = new FormData();
+    datos.append('id', id);
+    datos.append('fecha', fecha);
+    datos.append('producto', producto);
+    datos.append('cantidad', cantidad);
+    datos.append('transporte', transporte); 
+    datos.append('destino', destino);       
 
-    $.ajax({
-        url: "funciones/modificar_logistica.php",
-        data: {'comprobar':'logistica' , 'id':id, 'transporte' : transporte, 'fecha' : fecha_ingreso, 'producto' : producto, 'cantidad' : cantidad},
-        type:"POST",
-        datatype:"json",
-        success:function(response){
-
-            if(response.success){
-
-                console.log("Registro agregado exitosamente. ");
-            } else {
-
-                console.error("Error en el agregado: ", response.error);
-
-            }
-
+    fetch('funciones/modificar_registro.php', {
+        method: 'POST',
+        body: datos
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Registro actualizado correctamente.");
+            location.reload();
+        } else {
+            alert("Error: " + data.error);
         }
     })
-
-};
+    .catch(error => {
+        alert("Error de red: " + error);
+    });
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     const btnAgregar = document.getElementById('btnAgregar');
     const formulario = document.getElementById('formulario');
     const btnOcultar = document.getElementById('btnOcultar');
     
-     // Agregar referencia al botón Ocultar
-
-    // Verifica si los elementos fueron encontrados
+   
     if (!btnAgregar || !formulario || !btnOcultar) {
         console.error("No se encontraron los elementos en el DOM.");
         return;
     }
 
-    // Muestra el formulario al hacer clic en "Agregar"
     btnAgregar.addEventListener('click', () => {
         if (formulario.style.display === 'none' || formulario.style.display === '') {
-            formulario.style.display = 'block'; // Mostrar el formulario
+            formulario.style.display = 'block'; 
         } else {
-            formulario.style.display = 'none'; // Ocultar el formulario
+            formulario.style.display = 'none'; 
         }
     });
     
+ 
     document.addEventListener('click', function(event) {
         if (event.target && event.target.classList.contains('btn_modificar')) {
-            if (formulario.style.display === 'none' || formulario.style.display === '') {
-                formulario.style.display = 'block';
-            } else {
-                formulario.style.display = 'none';
-            }
+            const formulario = document.getElementById('formulario_modificar');
+            const boton = event.target;
+    
+            const fila = boton.closest('tr');
+            const celdas = fila.querySelectorAll('td');
+    
+       
+            formulario.querySelector('[name="id"]').value = celdas[0].textContent.trim();
+            formulario.querySelector('[name="transporte"]').value = celdas[1].textContent.trim();
+            formulario.querySelector('[name="fecha"]').value = celdas[2].textContent.trim();
+            formulario.querySelector('[name="producto"]').value = celdas[3].textContent.trim();
+            formulario.querySelector('[name="cantidad"]').value = celdas[4].textContent.trim();
+            formulario.querySelector('[name="destino"]').value = celdas[5].textContent.trim();
+    
+            formulario.style.display = 'block';
+            formulario.querySelector('input').focus();
         }
     });
-   
+    
+    const btnModificarEnviar = document.getElementById('btnModificar');
+    
+    btnModificarEnviar.addEventListener('click', function() {
+        const formularioModificar = document.getElementById('formulario_modificar');
+    
+        const id = formularioModificar.querySelector('[name="id"]').value.trim();
+        const transporte = formularioModificar.querySelector('[name="transporte"]').value.trim();
+        const fecha = formularioModificar.querySelector('[name="fecha"]').value.trim();
+        const producto = formularioModificar.querySelector('[name="producto"]').value.trim();
+        const cantidad = formularioModificar.querySelector('[name="cantidad"]').value.trim();
+        const destino = formularioModificar.querySelector('[name="destino"]').value.trim();
+    
+        if (!id || !transporte || !fecha || !producto || !cantidad || !destino) {
+            alert("Por favor, complete todos los campos.");
+            return;
+        }
+    
+        Modificar(id, transporte, fecha, producto, cantidad, destino);
+    
+        formularioModificar.style.display = "none"; 
+    });
+    
+    document.getElementById('btnOcultarModificar').addEventListener('click', function() {
+        document.getElementById('formulario_modificar').style.display = 'none';
+    });
     
 
-    // Oculta el formulario al hacer clic en "Ocultar"
-    btnOcultar.addEventListener('click', () => {
-        formulario.style.display = 'none'; // Ocultar el formulario
-    });
 
-    // Validación del formulario antes de enviar
+    btnOcultar.addEventListener('click', () => {
+        formulario.style.display = 'none'; 
+    });
+    
+
+
     formulario.addEventListener('submit', function(event) {
         event.preventDefault();
 
@@ -300,5 +334,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
 
 
