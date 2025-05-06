@@ -9,8 +9,9 @@ switch($_POST['comprobar']) {
         $fecha = $_POST['fecha'];
         $producto = $_POST['producto'];
         $cantidad = $_POST['cantidad'];
+        $sucursal = $_POST['sucursal'];
 
-        $comprobar_registro = "SELECT id FROM LogisticaDistribucion WHERE id = ?";
+        $comprobar_registro = "SELECT ID FROM Logistica WHERE id = ?";
         $stmt_registro = sqlsrv_prepare($conexion, $comprobar_registro, array(&$id));
 
         if(sqlsrv_execute($stmt_registro) === false) {
@@ -23,9 +24,9 @@ switch($_POST['comprobar']) {
             exit;
         }
 
-        $consulta_00 = "INSERT INTO LogisticaDistribucion (id, medio, fecha_entrada, id_producto, cantidad) 
-                        VALUES (?, ?, ?, ?, ?)";
-        $stmt_00 = sqlsrv_prepare($conexion, $consulta_00, array(&$id, &$transporte, &$fecha, &$producto, &$cantidad));
+        $consulta_00 = "INSERT INTO LogisticaDistribucion (ID, ID_Producto, ID_Transpote, ID_Sucursal, Fecha_Ingreso, Cantidad) 
+                        VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt_00 = sqlsrv_prepare($conexion, $consulta_00, array(&$id, &$producto, &$transporte, &$sucursal, &$producto, &$cantidad));
 
         if(sqlsrv_execute($stmt_00) === false) {
             echo json_encode(['error' => 'Error en consulta SQL']);

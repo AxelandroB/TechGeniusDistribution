@@ -6,8 +6,7 @@ switch($_POST['comprobar']) {
 
         $id = $_POST['id'];
 
-        $consulta_00 = "DELETE FROM Almacen WHERE id_LD = ?;
-                        DELETE FROM LogisticaDistribucion WHERE id = ?";
+        $consulta_00 = "DELETE FROM Logistica WHERE ID = ?";
         $stmt_00 = sqlsrv_prepare($conexion, $consulta_00, array(&$id, &$id));
 
         if(sqlsrv_execute($stmt_00) === false) {
