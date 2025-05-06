@@ -20,8 +20,8 @@ switch($_POST['comprobar']) {
 
         $consulta_01 = "SELECT Logistica.ID, Transportes.Tipo_Transporte, Logistica.Fecha_Ingreso, Logistica.Cantidad, Productos.Nombres AS Producto, Sucursales.Nombre AS Destino 
                         FROM Logistica
-                        INNER JOIN Productos ON Logistica.ID_Producto = Productos.id
-                        INNER JOIN Sucursales ON Logistica.ID_Sucursal = Sucursales.id
+                        INNER JOIN Productos ON Logistica.ID_Producto = Productos.ID
+                        INNER JOIN Sucursales ON Logistica.ID_Sucursal = Sucursales.ID
                         INNER JOIN Transportes ON Logistica.ID_Transporte = Transportes.ID
                         ORDER BY Logistica.ID
                         OFFSET 0 ROWS

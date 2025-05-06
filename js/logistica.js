@@ -6,7 +6,8 @@ function informacion() {
         dataType: "json",
         success: function(data) {
             console.log("AJAX success", data);
-            const table = document.getElementById("cuerpo");
+            const tbody = document.getElementById("cuerpo");
+            tbody.innerHTML = "";
 
             data.result.forEach(row => {
                 const tableRow = document.createElement("tr");
@@ -44,12 +45,15 @@ function informacion() {
                 editCell.appendChild(btnEliminar);
                 tableRow.appendChild(editCell);
 
-               const modifyCell = document.createElement("td");
-            const btnModificar = document.createElement("button");
-            btnModificar.textContent = "Modificar";
-            btnModificar.classList.add("btn_modificar");
-            modifyCell.appendChild(btnModificar);
-            tableRow.appendChild(modifyCell);
+                const modifyCell = document.createElement("td");
+                const btnModificar = document.createElement("button");
+                btnModificar.textContent = "Modificar";
+                btnModificar.classList.add("btn_modificar");
+                modifyCell.appendChild(btnModificar);
+
+                tableRow.appendChild(modifyCell);
+
+                tbody.appendChild(tableRow);
 
             });
 
