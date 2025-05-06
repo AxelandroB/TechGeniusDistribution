@@ -181,17 +181,15 @@ function eliminar(id, tableRow) {
     })
 };
 
-function agregar(id, transporte, fecha_ingreso, producto, cantidad) {
+function agregar( transporte, fecha_ingreso, producto, cantidad) {
 
     if(!confirm("¿Estás seguro de que deseas agregar un nuevo registro?")) {
         return;
     }
 
-    console.log("Agregado", id);
-
     $.ajax({
         url: "funciones/agregado_registro.php",
-        data: { 'comprobar' : 'logistica', 'id': id , 'transporte' : transporte, 'fecha' : fecha_ingreso, 'producto' : producto, 'cantidad' : cantidad},
+        data: { 'comprobar' : 'logistica', 'transporte' : transporte, 'fecha' : fecha_ingreso, 'producto' : producto, 'cantidad' : cantidad},
         type: "POST",
         datatype: "json",
         success: function(response) {
@@ -234,6 +232,18 @@ function Modificar(id, transporte, fecha, producto, cantidad, destino) {
     .catch(error => {
         alert("Error de red: " + error);
     });
+}
+
+function informacion_transporte() {
+    $.ajax({
+        url: "funciones/extraer.php",
+        data: { 'comprobar': 'transporte' },
+        type: "POST",
+        datatype: "json",
+        success: function(data) {
+
+        }
+    })
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -334,6 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
 
 
 

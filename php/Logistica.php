@@ -8,7 +8,7 @@
     <script src="../js/logistica.js"></script>
     <title>Logística</title>
 </head>
-<body onload="informacion()">
+<body onload="informacion(); ">
 
 <?php include "navbar.php"; ?>
 
@@ -22,6 +22,12 @@
     
 
             <label>Transporte</label>
+
+            <select id="transporte" name="Transporte" require>
+                <option>opcion 1</option>
+                <option>opcion 2</option>
+            </select>
+
             <input type="text" id="transporte" placeholder="Medio de transporte:" name="Transporte" required>
 
             <label>Fecha de ingreso</label>
@@ -35,7 +41,6 @@
 
             <input type="button" id="btnSubir" onclick="
             agregar(
-                document.getElementById('id').value,
                 document.getElementById('transporte').value,
                 document.getElementById('fecha').value,
                 document.getElementById('producto').value,

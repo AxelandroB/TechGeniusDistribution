@@ -51,6 +51,15 @@ switch($_POST['comprobar']) {
             ]);
         }
         break;
+
+    case 'transporte':
+        break;
+
+    case 'producto':
+        break;
+
+    case 'sucursal':
+        break;
     
     case 'marketing':
     
