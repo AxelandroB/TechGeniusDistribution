@@ -179,6 +179,7 @@ function eliminar(id, tableRow) {
             }
         }
     })
+    location.reload();
 };
 
 function agregar( transporte, fecha_ingreso, producto, cantidad, destino) {
@@ -202,9 +203,9 @@ function agregar( transporte, fecha_ingreso, producto, cantidad, destino) {
                 console.error("Error en el agregado: ", response.error);
 
             }
-
         }
     })
+    location.reload();
 };
 
 function Modificar(id, transporte, fecha, producto, cantidad, destino) {

@@ -14,11 +14,11 @@
 
         <nav>
             <ul>
-                <li class="title">TechGenius Distribution <div class = "antitle">S</div><div class = "antitle">.</div><div class = "antitle">A</div></li>
+                <li class="title"><a href="home.php">TechGenius Distribution S.A</a></li>
                 <li><a id="notp" href="control_calidad.php">Control Calidad</a></li>
                 <li><a id="notp" href="Logistica.php">Logistica</a></li>
                 <li><a id="notp2" href="marketing.php">Marketing</a></li>
-                <li><a href="Perfil.php" id="pfp">Perfil</a></li>
+                <li><a href="" id="pfp">Perfil</a></li>
             </ul>
         </nav>
         <svg id="usericon" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">

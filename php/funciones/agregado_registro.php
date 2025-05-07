@@ -75,13 +75,9 @@ switch($_POST['comprobar']) {
         $stmt_03 = sqlsrv_prepare($conexion, $consulta_03, array(&$id, &$id_producto, &$id_transporte, &$id_destino, &$fecha, &$cantidad));
 
         if(sqlsrv_execute($stmt_03) === false) {
-            var_dump($fecha);
             echo json_encode(['error' => 'Error en consulta SQL']);
-            die(print_r(sqlsrv_errors(), true));
             die();
         } else {
-            echo "si";
-            die();
             echo json_encode(['success' => true]);
         }
         break;
