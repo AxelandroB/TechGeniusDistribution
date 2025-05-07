@@ -53,12 +53,66 @@ switch($_POST['comprobar']) {
         break;
 
     case 'transporte':
+
+        $consulta_00 = "SELECT Tipo_Transporte FROM Transportes";
+
+        $stmt_00 = sqlsrv_prepare($conexion, $consulta_00);
+
+        if(sqlsrv_execute($stmt_00) === false) {
+            echo json_encode(['error' => 'Error en consulta SQL']);
+            die();
+        } else {
+            $result = [];
+            while($row = sqlsrv_fetch_array($stmt_00, SQLSRV_FETCH_ASSOC)) {
+                $result[] = [
+                    'transporte' => $row['Tipo_Transporte'],
+                ];
+            }
+            // Envía los datos como JSON
+            echo json_encode($result);
+        }
         break;
 
     case 'producto':
+
+        $consulta_00 = "SELECT Nombres FROM Productos";
+
+        $stmt_00 = sqlsrv_prepare($conexion, $consulta_00);
+
+        if(sqlsrv_execute($stmt_00) === false) {
+            echo json_encode(['error' => 'Error en consulta SQL']);
+            die();
+        } else {
+            $result = [];
+            while($row = sqlsrv_fetch_array($stmt_00, SQLSRV_FETCH_ASSOC)) {
+                $result[] = [
+                    'producto' => $row['Nombres'],
+                ];
+            }
+            // Envía los datos como JSON
+            echo json_encode($result);
+        }
         break;
 
     case 'sucursal':
+
+        $consulta_00 = "SELECT Nombre FROM Sucursales";
+
+        $stmt_00 = sqlsrv_prepare($conexion, $consulta_00);
+
+        if(sqlsrv_execute($stmt_00) === false) {
+            echo json_encode(['error' => 'Error en consulta SQL']);
+            die();
+        } else {
+            $result = [];
+            while($row = sqlsrv_fetch_array($stmt_00, SQLSRV_FETCH_ASSOC)) {
+                $result[] = [
+                    'sucursal' => $row['Nombre'],
+                ];
+            }
+            // Envía los datos como JSON
+            echo json_encode($result);
+        }
         break;
     
     case 'marketing':

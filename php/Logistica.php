@@ -8,7 +8,7 @@
     <script src="../js/logistica.js"></script>
     <title>Logística</title>
 </head>
-<body onload="informacion(); ">
+<body onload="informacion(); informacion_transporte(); informacion_producto(); informacion_destino()">
 
 <?php include "navbar.php"; ?>
 
@@ -22,29 +22,28 @@
     
 
             <label>Transporte</label>
-
-            <select id="transporte" name="Transporte" require>
-                <option>opcion 1</option>
-                <option>opcion 2</option>
-            </select>
-
-            <input type="text" id="transporte" placeholder="Medio de transporte:" name="Transporte" required>
+            <select id="transporte_seleccion" name="Transporte" required></select>
 
             <label>Fecha de ingreso</label>
             <input type="date" id="fecha" name="Fecha" required>
 
             <label>Producto</label>
-            <input type="text" id="producto" placeholder="Id producto" name="Producto" required>
+            <select id="producto_seleccion" name="Producto" required></select>
 
             <label>Cantidad de productos</label>
             <input type="number" id="cantidad" placeholder="Cantidad" name="Unidades" required>
 
+            <label>Destino</label>
+            <select id="destino_seleccion" name="Destino" required></select>
+            
+
             <input type="button" id="btnSubir" onclick="
             agregar(
-                document.getElementById('transporte').value,
+                document.getElementById('transporte_seleccion').value,
                 document.getElementById('fecha').value,
-                document.getElementById('producto').value,
+                document.getElementById('producto_seleccion').value,
                 document.getElementById('cantidad').value,
+                document.getElementById('destino_seleccion').value
             )
             "
             value="Ingresar">
