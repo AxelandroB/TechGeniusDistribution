@@ -18,6 +18,7 @@
                 <li><a id="notp" href="control_calidad.php">Control Calidad</a></li>
                 <li><a id="notp" href="Logistica.php">Logistica</a></li>
                 <li><a id="notp2" href="marketing.php">Marketing</a></li>
+                <li><a href="notp2" href="productos.php">Productos</a></li>
                 <li><a href="" id="pfp">Perfil</a></li>
             </ul>
         </nav>
