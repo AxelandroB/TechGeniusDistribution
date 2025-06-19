@@ -1,231 +1,204 @@
-function informacion_productos() {
+$(document).ready(function () {
+  // Mostrar formulario Agregar
+  $("#btnAgregar").click(function () {
+    $("#formulario").show();
+  });
+
+  // Ocultar formulario Agregar
+  $("#btnOcultar").click(function () {
+    $("#formulario").hide();
+    $("#formulario")[0].reset();
+  });
+
+  // Enviar formulario Agregar
+  $("#btnSubir").click(function () {
+    const nombre = $("#nombre").val();
+    const tipo = $("#tipo").val();
+    const proveedor = $("#proveedor").val();
+    const marca = $("#marca").val();
+
+    if (nombre === "" || tipo === "" || proveedor === "" || marca === "") {
+      alert("Todos los campos son obligatorios");
+      return;
+    }
+
     $.ajax({
-        url: "funciones/extraer.php",
-        data: { 'comprobar': 'producto' },
-        type: "POST",
-        dataType: "json",
-        success: function(data) {
-            const tbody = document.getElementById("cuerpo");
-            tbody.innerHTML = "";
-
-
-            data.result.forEach(row => {
-                const tr = document.createElement("tr");
-
-
-                // ID
-                let td = document.createElement("td");
-                td.textContent = row.id;
-                tr.appendChild(td);
-
-
-                // Nombre
-                td = document.createElement("td");
-                td.textContent = row.nombre;
-                tr.appendChild(td);
-
-
-                // Categoría
-                td = document.createElement("td");
-                td.textContent = row.categoria;
-                tr.appendChild(td);
-
-
-                // Stock
-                td = document.createElement("td");
-                td.textContent = row.stock;
-                tr.appendChild(td);
-
-
-                // Eliminar
-                let tdAcc = document.createElement("td");
-                let btnE = document.createElement("button");
-                btnE.textContent = "Eliminar";
-                btnE.classList.add("btn_eliminar");
-                btnE.onclick = () => eliminar(row.id, tr);
-                tdAcc.appendChild(btnE);
-                tr.appendChild(tdAcc);
-
-
-                // Modificar
-                tdAcc = document.createElement("td");
-                let btnM = document.createElement("button");
-                btnM.textContent = "Modificar";
-                btnM.classList.add("btn_modificar");
-                tdAcc.appendChild(btnM);
-                tr.appendChild(tdAcc);
-
-
-                tbody.appendChild(tr);
-            });
-
-
-            // Paginación
-            const total = data.total_resultados;
-            const perPage = 5;
-            const pages = Math.ceil(total / perPage);
-            const pg = document.getElementById("paginacion");
-            pg.innerHTML = "";
-            for (let i = 1; i <= pages; i++) {
-                let btn = document.createElement("button");
-                btn.textContent = i;
-                btn.classList.add("btn_pagina");
-                btn.onclick = () => cambiar_pagina(i);
-                pg.appendChild(btn);
-            }
+      url: "funciones/ingresa_producto.php",
+      method: "POST",
+      data: {
+        Nombre: nombre,
+        Tipo_Producto: tipo,
+        Proveedor: proveedor,
+        Marca: marca
+      },
+      success: function (data) {
+        try {
+          const res = JSON.parse(data);
+          if (res.status === "ok") {
+            alert("Producto ingresado correctamente");
+            $("#formulario").hide();
+            $("#formulario")[0].reset();
+            cargarProductos();
+          } else {
+            alert("Error: " + res.message);
+          }
+        } catch (e) {
+          alert("Respuesta inesperada del servidor");
+          console.log(data);
         }
+      }
     });
-}
+  });
 
+  // Ocultar formulario Modificar
+  $("#btnOcultarModificar").click(function () {
+    $("#formulario_modificar").hide();
+    $("#formulario_modificar")[0].reset();
+  });
 
-function cambiar_pagina(pagina) {
+  // Confirmar Modificación
+  $("#btnModificar").click(function () {
+    const id = $("#id_modificar").val();
+    const nombre = $("#nombre_modificar").val();
+    const tipo = $("#tipo_producto_modificar").val();
+    const proveedor = $("#proveedor_modificar").val();
+    const marca = $("#marca_modificar").val();
+
+    if (nombre === "" || tipo === "" || proveedor === "" || marca === "") {
+      alert("Todos los campos son obligatorios");
+      return;
+    }
+
     $.ajax({
-        url: "funciones/paginador.php",
-        data: { 'comprobar': 'producto', 'pagina': pagina },
-        type: "POST",
-        dataType: "json",
-        success: function(res) {
-            mostrar_datos(res.result);
+      url: "funciones/modificar_producto.php",
+      method: "POST",
+      data: {
+        id: id,
+        nombre: nombre,
+        tipo: tipo,
+        proveedor: proveedor,
+        marca: marca
+      },
+      success: function (data) {
+        try {
+          const res = JSON.parse(data);
+          if (res.status === "ok") {
+            alert("Producto modificado correctamente");
+            $("#formulario_modificar").hide();
+            cargarProductos();
+          } else {
+            alert("Error: " + res.message);
+          }
+        } catch (e) {
+          alert("Error inesperado");
+          console.log(data);
         }
+      }
     });
-}
+  });
 
+  // Evento Eliminar
+  $(document).on("click", ".btn_eliminar", function () {
+    const id = $(this).data("id");
 
-function mostrar_datos(result) {
-    const tbody = document.getElementById("cuerpo");
-    tbody.innerHTML = "";
-    result.forEach(row => {
-        const tr = document.createElement("tr");
-
-
-        ["id","nombre","categoria","stock"].forEach(key => {
-            let td = document.createElement("td");
-            td.textContent = row[key];
-            tr.appendChild(td);
-        });
-
-
-        let tdAcc = document.createElement("td");
-        let btnE = document.createElement("button");
-        btnE.textContent = "Eliminar";
-        btnE.classList.add("btn_eliminar");
-        btnE.onclick = () => eliminar(row.id, tr);
-        tdAcc.appendChild(btnE);
-        tr.appendChild(tdAcc);
-
-
-        tdAcc = document.createElement("td");
-        let btnM = document.createElement("button");
-        btnM.textContent = "Modificar";
-        btnM.classList.add("btn_modificar");
-        tdAcc.appendChild(btnM);
-        tr.appendChild(tdAcc);
-
-
-        tbody.appendChild(tr);
-    });
-}
-
-
-function eliminar(id, row) {
-    if (!confirm("¿Estás seguro de eliminar este producto?")) return;
-    $.ajax({
-        url: "funciones/eliminar_registro.php",
-        data: { 'comprobar': 'producto', 'id': id },
-        type: "POST",
-        dataType: "json",
-        success: function(res) {
-            if (res.success) row.remove();
-            else alert("Error: " + res.error);
-        }
-    });
-}
-
-
-function agregar(nombre, categoria, stock) {
-    if (!confirm("¿Agregar este producto?")) return;
-    $.ajax({
-        url: "funciones/agregado_registro.php",
-        data: {
-            'comprobar': 'producto',
-            'nombre': nombre,
-            'categoria': categoria,
-            'stock': stock
-        },
-        type: "POST",
-        dataType: "json",
-        success: function(res) {
-            if (res.success) informacion_productos();
-            else alert("Error: " + res.error);
-        }
-    });
-}
-
-
-function Modificar(id, nombre, categoria, stock) {
-    let fd = new FormData();
-    fd.append("id", id);
-    fd.append("nombre", nombre);
-    fd.append("categoria", categoria);
-    fd.append("stock", stock);
-    fetch("funciones/modificar_registro.php", {
+    if (confirm("¿Seguro que deseas eliminar este producto?")) {
+      $.ajax({
+        url: "funciones/eliminar_producto.php",
         method: "POST",
-        body: fd
-    })
-    .then(r => r.json())
-    .then(d => {
-        if (d.success) informacion_productos();
-        else alert("Error: " + d.error);
-    });
+        data: { id: id },
+        success: function (data) {
+          try {
+            const res = JSON.parse(data);
+            if (res.status === "ok") {
+              alert("Producto eliminado correctamente");
+              cargarProductos();
+            } else {
+              alert("Error: " + res.message);
+            }
+          } catch (e) {
+            alert("Error inesperado");
+            console.log(data);
+          }
+        }
+      });
+    }
+  });
+
+  // Evento Modificar (rellena formulario)
+  $(document).on("click", ".btn_modificar", function () {
+    const fila = $(this).closest("tr");
+
+    const id = $(this).data("id");
+    const nombre = fila.find("td:eq(1)").text();
+    const tipo = fila.find("td:eq(2)").text();
+    const proveedor = fila.find("td:eq(3)").text();
+    const marca = fila.find("td:eq(4)").text();
+
+    $("#id_modificar").val(id);
+    $("#nombre_modificar").val(nombre);
+    $("#tipo_producto_modificar").val(tipo);
+    $("#proveedor_modificar").val(proveedor);
+    $("#marca_modificar").val(marca);
+
+    $("#formulario_modificar").show();
+  });
+
+  // Evento paginación
+  $(document).on("click", ".btn_pagina", function () {
+    const pagina = $(this).text();
+    cargarProductos(pagina);
+  });
+
+  // Cargar productos al iniciar
+  cargarProductos();
+});
+
+function cargarProductos(pagina = 1) {
+  $.ajax({
+    url: "funciones/paginador_productos.php",
+    method: "POST",
+    data: {
+      pagina: pagina,
+      comprobar: "productos"
+    },
+    dataType: "json",
+    success: function (res) {
+      if (res && res.result) {
+        mostrarTabla(res.result);
+        crearPaginacion(res.total_resultados);
+      } else {
+        $("#cuerpo").html("<tr><td colspan='7'>Sin resultados</td></tr>");
+      }
+    }
+  });
 }
 
+function mostrarTabla(productos) {
+  $("#cuerpo").html("");
 
-// DOM Events
-document.addEventListener("DOMContentLoaded", () => {
-    const btnAgr = document.getElementById("btnAgregar");
-    const form = document.getElementById("formulario");
-    const btnOc = document.getElementById("btnOcultar");
-    const formMod = document.getElementById("formulario_modificar");
-    const btnMod = document.getElementById("btnModificar");
-    const btnOcMod = document.getElementById("btnOcultarModificar");
+  productos.forEach(function (item) {
+    let fila = "<tr>";
+    fila += "<td>" + item.id + "</td>";
+    fila += "<td>" + item.nombre + "</td>";
+    fila += "<td>" + item.tipo_producto + "</td>";
+    fila += "<td>" + item.proveedor + "</td>";
+    fila += "<td>" + item.marca + "</td>";
+    fila += "<td><button class='btn_eliminar' data-id='" + item.id + "'>Eliminar</button></td>";
+    fila += "<td><button class='btn_modificar' data-id='" + item.id + "'>Modificar</button></td>";
+    fila += "</tr>";
 
+    $("#cuerpo").append(fila);
+  });
+}
 
-    btnAgr.addEventListener("click", () => form.style.display = "block");
-    btnOc.addEventListener("click", () => form.style.display = "none");
+function crearPaginacion(total) {
+  const totalPaginas = Math.ceil(total / 2);
+  let paginacionHTML = "";
 
+  for (let i = 1; i <= totalPaginas; i++) {
+    paginacionHTML += "<button class='btn_pagina'>" + i + "</button>";
+  }
 
-    form.addEventListener("submit", e => {
-        e.preventDefault();
-        const n = form.nombre.value.trim();
-        const c = form.categoria.value.trim();
-        const s = form.stock.value.trim();
-        if (!n||!c||!s) return alert("Completa todos los campos");
-        agregar(n,c,s);
-        form.reset();
-        form.style.display = "none";
-    });
-
-
-    document.addEventListener("click", e => {
-        if (e.target.classList.contains("btn_modificar")) {
-            const tr = e.target.closest("tr");
-            formMod.id.value        = tr.cells[0].textContent;
-            formMod.nombre.value    = tr.cells[1].textContent;
-            formMod.categoria.value = tr.cells[2].textContent;
-            formMod.stock.value     = tr.cells[3].textContent;
-            formMod.style.display = "block";
-        }
-    });
-
-
-    btnMod.addEventListener("click", () => {
-        const id = formMod.id.value;
-        const n  = formMod.nombre.value.trim();
-        const c  = formMod.categoria.value.trim();
-        const s  = formMod.stock.value.trim();
-        if (!n||!c||!s) return alert("Completa todos los campos");
-        Modificar(id,n,c,s);
-        formMod.style.display = "none";
-    });
-    btnOcMod.addEventListener("click", () => formMod.style.display = "none");
-});
+  $("#paginacion").html(paginacionHTML);
+}
+  
